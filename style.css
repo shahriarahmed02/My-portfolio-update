@@ -50,6 +50,7 @@ header {
     font-size: 2rem;
     font-weight: 700;
     color: var(--text-clr);
+    text-decoration: none;
 }
 
 .logo span { color: var(--global-clr); }
@@ -71,6 +72,7 @@ header {
     font-size: 1.1rem;
     font-weight: 500;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .nav-list a:hover, .nav-list a.active { color: var(--global-clr); }
@@ -211,4 +213,220 @@ body {
     margin-top: 30px;
 }
 }
+/* Ensure the Skills Section uses your dark theme */
+.skills-section {
+    background-color: var(--dark-clr);
+    min-height: 100vh;
+    padding: 10%;
+    text-align: center;
+}
+
+.skills-title {
+    color: var(--text-clr);
+    font-size: 3rem;
+    margin-bottom: 50px;
+}
+
+.skills-title span {
+    color: var(--global-clr);
+}
+
+/* Grid Layout */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+}
+
+/* --- THE LIGHT-BORDER CARD LOGIC --- */
+.skill-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05); /* Slight glass effect */
+    height: 300px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Clips the rotating light */
+    transition: transform 0.5s;
+}
+
+/* The Rotating Light Gradient */
+.skill-card::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 200%;
+    background: linear-gradient(var(--global-clr), var(--btn-clr));
+    animation: rotateLight 4s linear infinite;
+}
+
+/* The Inner Cover (Creates the border gap) */
+.skill-card::after {
+    content: '';
+    position: absolute;
+    inset: 5px; /* Adjust this for border thickness */
+    background: var(--second-dark-clr);
+    border-radius: 15px;
+    z-index: 1;
+}
+
+/* Placing Content Above the Light */
+.card-content {
+    position: relative;
+    z-index: 2;
+    color: var(--text-clr);
+}
+
+.card-content i {
+    font-size: 4.5rem;
+    color: var(--global-clr);
+    margin-bottom: 20px;
+}
+
+.card-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Keyframes for the Moving Light */
+@keyframes rotateLight {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hover Interactivity */
+.skill-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.skill-card:hover::before {
+    animation-duration: 2s; /* Light spins faster on hover */
+}
+
+
+
+
+/* About Section Styles */
+.about-section {
+    background: var(--dark-clr);
+    min-height: 100vh;
+    padding: 100px 10%;
+    display: flex;
+    align-items: center;
+}
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-img {
+    position: relative;
+    width: 60vw;
+}
+
+.about-img img {
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+/* Background Glow behind image */
+.img-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    height: 75%;
+    background: var(--global-clr);
+    filter: blur(30px);
+    z-index: 1;
+    opacity: 0.4;
+    border-radius: 70px;
+}
+
+.about-content h2 {
+    font-size: 3.5rem;
+    color: var(--text-clr);
+}
+
+.about-content h2 span {
+    color: var(--global-clr);
+}
+
+.about-content h3 {
+    font-size: 1.8rem;
+    color: var(--text-clr);
+    margin: 10px 0 20px;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+    margin-bottom: 2rem;
+}
+#read-more-btn {
+    background: var(--global-clr);
+    color: rgba(255, 255, 255, 0.87);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+  
+}
+
+#read-more-btn:hover {
+    background: var(--btn-clr);
+    color: white;
+    cursor: pointer;
+}
+/* Toggle Functionality Styling */
+.hidden-content {
+    display: none;
+    margin-top: -1rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.personal-info {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--global-clr);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsive */
+@media (max-width: 992px) {
+    .about-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about-img {
+        width: 70%;
+    }
+    .personal-info {
+        justify-content: center;
+    }
+}
+
 
