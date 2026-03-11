@@ -171,6 +171,8 @@
     }
 
     .square {
+      position: relative;
+      /* Add this! */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -199,11 +201,11 @@
 
     .white-piece {
       color: #fff;
-      filter: drop-shadow(0 0 2px black);
+      filter: drop-shadow(0 0 2px var(--bg-dark));
     }
 
     .black-piece {
-      color: var(--accent);
+      color: black;
       filter: drop-shadow(0 0 5px var(--accent));
     }
 
@@ -270,6 +272,43 @@
       background-color: #ff499e;
       border-radius: 10px;
     }
+
+    /* Last Move Highlighting */
+    .last-move-prev {
+      background-color: rgba(37, 231, 37, 0.527) !important;
+      /* Light Green for old square */
+    }
+
+    .last-move-now {
+      background-color: rgba(25, 199, 199, 0.993) !important;
+      /* Deeper Green for new square */
+    }
+
+    /* Legal Move Dots */
+    /* Regular move dot */
+    .legal-dot {
+      width: 15px;
+      height: 15px;
+      background-color: rgba(11, 223, 64, 0.712);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Capture square highlight (Red Square) */
+    .capture-highlight {
+      /* background-color: rgba(255, 73, 158, 0.349) !important; */
+      /* Your pink/red theme color */
+      box-shadow: inset 0 0 15px rgba(255, 73, 158, 0.8);
+      border: 3px solid var(--btn-clr);
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .dark .legal-dot {
+      background-color: rgba(11, 223, 64, 0.712);
+    }
   </style>
 </head>
 
@@ -313,6 +352,7 @@
     const boardElement = document.getElementById('chessboard');
     const statusElement = document.getElementById('status');
     let selectedSquare = null;
+    let gameStarted = false; // Flag for manual start
 
     const engineWorker = new Worker('chess-worker.js');
 
@@ -321,6 +361,8 @@
       b: 'fa-chess-bishop', q: 'fa-chess-queen', k: 'fa-chess-king'
     };
 
+    /** * Renders the board and pieces 
+     */
     function drawBoard() {
       boardElement.innerHTML = '';
       const boardState = game.board();
@@ -331,6 +373,7 @@
           const squareName = String.fromCharCode(97 + c) + (8 - r);
           squareDiv.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`;
 
+          // Keep the selection highlight if this square is active
           if (selectedSquare === squareName) squareDiv.classList.add('selected');
 
           const piece = boardState[r][c];
@@ -346,40 +389,104 @@
       }
     }
 
+    /** * Highlights legal moves with dots (empty) or red glow (capture)
+     */
+    function showLegalMoves(square) {
+      const moves = game.moves({ square: square, verbose: true });
+      const squares = document.querySelectorAll('.square');
+
+      moves.forEach(m => {
+        const toIdx = (8 - parseInt(m.to[1])) * 8 + (m.to.charCodeAt(0) - 97);
+        const targetSquare = squares[toIdx];
+        const pieceOnTarget = game.get(m.to);
+
+        if (pieceOnTarget) {
+          // Capture Highlight: Red Glow
+          const captureBox = document.createElement('div');
+          captureBox.className = 'capture-highlight';
+          captureBox.style.position = 'absolute';
+          captureBox.style.width = '100%';
+          captureBox.style.height = '100%';
+          targetSquare.appendChild(captureBox);
+        } else {
+          // Standard Move: Small Dot
+          const dot = document.createElement('div');
+          dot.className = 'legal-dot';
+          targetSquare.appendChild(dot);
+        }
+      });
+    }
+
+    /** * Highlights the green path of the last move 
+     */
+    function highlightLastMove(from, to) {
+      const squares = document.querySelectorAll('.square');
+      const fromIdx = (8 - parseInt(from[1])) * 8 + (from.charCodeAt(0) - 97);
+      const toIdx = (8 - parseInt(to[1])) * 8 + (to.charCodeAt(0) - 97);
+
+      // Use timeout to ensure board is drawn before applying classes
+      setTimeout(() => {
+        squares[fromIdx].classList.add('last-move-prev');
+        squares[toIdx].classList.add('last-move-now');
+      }, 10);
+    }
+
+    /** * Handles user clicks on the board
+     */
     function handleSquareClick(square) {
+      if (!gameStarted) {
+        statusElement.innerText = "Please click 'Start Game' to begin!";
+        statusElement.style.color = "var(--btn-clr)";
+        return;
+      }
+
       if (game.turn() === 'b' || game.game_over()) return;
 
       if (selectedSquare === square) {
         selectedSquare = null;
+        drawBoard();
       } else {
         const move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
 
         if (move) {
           selectedSquare = null;
           drawBoard();
+          highlightLastMove(move.from, move.to);
 
-          // ADD INCREMENT AFTER YOUR MOVE
           if (window.addIncrement) window.addIncrement('w');
 
+          // Check if user won BEFORE bot thinks
           if (!window.checkWinCondition(game)) {
             statusElement.innerText = "Turjo is thinking...";
             engineWorker.postMessage({ fen: game.fen() });
           }
         } else {
           const piece = game.get(square);
-          if (piece && piece.color === 'w') selectedSquare = square;
+          if (piece && piece.color === 'w') {
+            selectedSquare = square;
+            drawBoard(); // Clear previous highlights/dots
+
+            // Highlight current selection
+            const idx = (8 - parseInt(square[1])) * 8 + (square.charCodeAt(0) - 97);
+            document.querySelectorAll('.square')[idx].classList.add('selected');
+
+            showLegalMoves(square);
+          }
         }
       }
-      drawBoard();
     }
 
+    /** * Handles AI moves coming from the worker
+     */
     engineWorker.onmessage = function (e) {
       const move = game.move(e.data);
       drawBoard();
       updateGameStatus();
 
-      // ADD INCREMENT AFTER TURJO'S MOVE
-      if (window.addIncrement) window.addIncrement('b');
+      if (move) {
+        highlightLastMove(move.from, move.to);
+        if (window.addIncrement) window.addIncrement('b');
+      }
 
       if (window.updateTurjoChat) {
         window.updateTurjoChat(game, move);
@@ -399,6 +506,7 @@
     }
 
     function undoMove() {
+      if (!gameStarted) return;
       game.undo(); game.undo();
       selectedSquare = null;
       drawBoard();
@@ -409,11 +517,16 @@
       }
     }
 
+    /** * Starts/Resets the full game logic
+     */
     function initGame() {
       game = new Chess();
       selectedSquare = null;
+      gameStarted = true;
+      statusElement.style.color = "white";
+
       drawBoard();
-      statusElement.innerText = "Your Turn (White)";
+      updateGameStatus();
 
       if (window.resetChessTimer && window.startChessTimer) {
         window.resetChessTimer();
@@ -421,8 +534,10 @@
       }
     }
 
-    initGame();
+    // Initial board setup on page load (manual start mode)
+    drawBoard();
   </script>
+
 </body>
 
 </html>

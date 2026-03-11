@@ -44,13 +44,14 @@ window.checkWinCondition = function(game) {
             message = losingColor === 'w' ? "Checkmate! Turjo wins! 😈" : "Checkmate! You beat Turjo! 🏆";
         } else if (game.in_draw()) {
             message = "It's a Draw! 🤝";
-        } else if (game.in_stalemate()) {
-            message = "Stalemate! No one wins. 😶";
         }
 
+        // Show result and ask for rematch
         setTimeout(() => {
-            alert(message);
-        }, 600);
+            if (confirm(message + "\n\nWould you like a rematch?")) {
+                window.location.reload(); // Simplest way to restart everything
+            }
+        }, 800);
         return true;
     }
     return false;
@@ -106,5 +107,5 @@ window.resetChessTimer = function() {
     playerTime = 600;
     opponentTime = 600;
     if (timerInterval) clearInterval(timerInterval);
-    updateTimerDisplay();
+    updateTimerDisplay(); // Ensures UI shows 10:00
 };
