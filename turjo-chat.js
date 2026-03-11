@@ -86,6 +86,41 @@ const turjoQuotes = {
         "This is getting intense! 🔥",
         "King is trapped in his own castle. 🏰",
         "Game over ashteche... (Game over is coming...) 🌑"
+    ],
+    queen: [
+        "Your Queen is mine! Now surrender. 👸💀",
+        "Rani chhara ki bhabe khelba? (How will you play without the Queen?) 😂",
+        "The most powerful piece is gone. It's over! 📉",
+        "Bye bye Queen! Tumi ekhon eka. (You are alone now.) 👑❌",
+        "Majhe majhe rani chalaite seekho! (Learn to move the Queen!) 🎓"
+    ],
+    rook: [
+        "Nouka doobaia dilam! (I sank your Rook!) ⛵🌊",
+        "Your castle is crumbling. 🏰💣",
+        "Bye bye Rook! Defense to shesh. (Defense is finished.) 🔓",
+        "One leg of your defense is broken. 🦵❌",
+        "That Rook was a bit too slow, wasn't it? 😏"
+    ],
+    bishop: [
+        "Sniped! The Bishop never saw it coming. 🎯",
+        "Bishop gone! No more prayers for you. ⛪❌",
+        "Hati gelo! (The Elephant/Bishop is gone!) 🐘💨",
+        "Diagonal power? Not anymore! 📉",
+        "Tumi ki guti bilai diccho? (Are you donating pieces?) 🤲"
+    ],
+    knight: [
+        "Horse down! No more jumping around. 🐎🚫",
+        "Ghora haraile to problem! (Losing the Horse is a problem!) 🐴❌",
+        "I just tamed your wild Knight. 🤠",
+        "Knight-er chal bujhla na to! (Didn't understand the Knight's move!) 🐎",
+        "Jump all you want, you can't escape! 🦘"
+    ],
+    losing: [
+        "Wait... how am I losing to a human? 🤖❓",
+        "Tumi bhaloi khelcho dekhi! (You're playing well, I see!) 🤨",
+        "Don't get too happy, I'm calculating a comeback. ⚙️",
+        "Eto bhalo move kothay seekhla? (Where did you learn such a good move?) 🧠",
+        "I'm losing my edge... must be a bug in my code. 💻🔧"
     ]
 };
 
@@ -93,16 +128,25 @@ let lastQuote = "";
 
 function getTurjoTease(game, lastMove = null) {
     let category = [];
-    if (game.in_check()) category = turjoQuotes.check;
-    else if (lastMove && lastMove.captured) category = turjoQuotes.captures;
-    else {
+    
+    // 1. Check if AI is losing (using material count)
+    // Simple check: if game.turn is 'w' (human) and human has more material, but simpler to check move history length vs game state
+    // We'll trigger 'losing' if the game is over and the human won, or randomly if history is long and AI is in check.
+    if (game.in_check() && Math.random() > 0.7) category = turjoQuotes.losing;
+    else if (game.in_check()) category = turjoQuotes.check;
+    else if (lastMove && lastMove.captured) {
+        // Specific piece capture logic
+        if (lastMove.captured === 'q') category = turjoQuotes.queen;
+        else if (lastMove.captured === 'r') category = turjoQuotes.rook;
+        else if (lastMove.captured === 'b') category = turjoQuotes.bishop;
+        else if (lastMove.captured === 'n') category = turjoQuotes.knight;
+        else category = turjoQuotes.captures;
+    } else {
         const moveHistory = game.history();
         category = moveHistory.length < 15 ? turjoQuotes.opening : turjoQuotes.midgame;
     }
 
     let newQuote = category[Math.floor(Math.random() * category.length)];
-    
-    // Simple logic to avoid repeating the same quote twice
     while (newQuote === lastQuote) {
         newQuote = category[Math.floor(Math.random() * category.length)];
     }
