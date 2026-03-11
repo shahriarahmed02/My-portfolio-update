@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turjo Chess | Professional Edition</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #021526;
+      --card-bg: #032030;
+      --accent: #00d2ff;
+      --board-light: #2c5d7d;
+      --board-dark: #112e42;
+      --global-clr: #00d2ff;
+      --btn-clr: #ff499e;
+      --second-dark-clr: #032030;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 15px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .home-link {
+      align-self: flex-start;
+      margin-bottom: 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Main Container Fix: Responsive Column/Row */
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    @media (min-width: 992px) {
+      .game-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+    }
+
+    /* Professional Rotating Border Logic */
+    .profile-card,
+    .board-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      /* Prevents squeezing */
+    }
+
+    /* Sizing Fixes */
+    .profile-card {
+      width: 300px;
+      padding: 40px 15px;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .board-wrapper {
+      width: 100%;
+      max-width: 500px;
+      /* Limits size on desktop */
+      aspect-ratio: 1 / 1;
+      /* Forces square shape */
+    }
+
+    /* The Animation Sweep */
+    .profile-card::before,
+    .board-wrapper::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent, var(--global-clr), var(--btn-clr), var(--global-clr), transparent);
+      animation: rotateLight 4s linear infinite;
+      z-index: 0;
+    }
+
+    .profile-card::after,
+    .board-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      /* Border thickness */
+      background: var(--second-dark-clr);
+      border-radius: 16px;
+      z-index: 1;
+    }
+
+    .profile-card>*,
+    .board-wrapper>* {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes rotateLight {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Profile UI */
+    .profile-card img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--btn-clr);
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .elo-badge {
+      background: var(--accent);
+      color: black;
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* Chessboard Grid Fix */
+    .board {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      width: 100%;
+      height: 100%;
+    }
+
+    .square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: clamp(20px, 5vw, 36px);
+      cursor: pointer;
+    }
+
+    .light {
+      background-color: var(--board-light);
+    }
+
+    .dark {
+      background-color: var(--board-dark);
+    }
+
+    .selected {
+      background-color: rgba(0, 210, 255, 0.4) !important;
+    }
+
+    .white-piece {
+      color: #fff;
+      filter: drop-shadow(0 0 2px black);
+    }
+
+    .black-piece {
+      color: var(--accent);
+      filter: drop-shadow(0 0 5px var(--accent));
+    }
+
+    /* Controls */
+    .controls {
+      margin-top: 20px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .btn {
+      background: var(--accent);
+      border: none;
+      padding: 10px 25px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: white;
+      padding: 10px 25px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #chat {
+      transition: opacity 0.3s ease;
+      min-height: 3em;
+      /* Prevents the card from jumping when text changes */
+      font-style: italic;
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="index.html" class="home-link">
+    <i class="fa-solid fa-arrow-left"></i> Back to Home
+  </a>
+
+  <div class="game-container">
+    <div class="profile-card">
+      <img src="./images/Turjo.png" alt="Turjo">
+      <div class="elo-badge">ELO 1600</div>
+      <h3>Shahriar Ahmed Turjo</h3>
+      <p id="chat">"Are you ready?"</p>
+    </div>
+
+    <div style="flex-grow: 1; max-width: 500px; width: 100%;">
+      <div class="board-wrapper">
+        <div id="chessboard" class="board"></div>
+      </div>
+
+      <div class="controls">
+        <div id="status" style="margin-bottom: 15px; font-weight: bold;">Your Turn (White)</div>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+          <button class="btn" onclick="initGame()">New Game</button>
+          <button class="btn-outline" onclick="undoMove()">Undo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="turjo-chat.js"></script>
+
+  <script>
+    let game = new Chess();
+    const boardElement = document.getElementById('chessboard');
+    const statusElement = document.getElementById('status');
+    let selectedSquare = null;
+
+    const engineWorker = new Worker('chess-worker.js');
+
+    const pieceIcons = {
+      p: 'fa-chess-pawn', r: 'fa-chess-rook', n: 'fa-chess-knight',
+      b: 'fa-chess-bishop', q: 'fa-chess-queen', k: 'fa-chess-king'
+    };
+
+    function drawBoard() {
+      boardElement.innerHTML = '';
+      const boardState = game.board();
+
+      for (let r = 0; r < 8; r++) {
+        for (let c = 0; c < 8; c++) {
+          const squareDiv = document.createElement('div');
+          const squareName = String.fromCharCode(97 + c) + (8 - r);
+          squareDiv.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`;
+
+          if (selectedSquare === squareName) squareDiv.classList.add('selected');
+
+          const piece = boardState[r][c];
+          if (piece) {
+            const icon = document.createElement('i');
+            icon.className = `fa-solid ${pieceIcons[piece.type]} ${piece.color === 'w' ? 'white-piece' : 'black-piece'}`;
+            squareDiv.appendChild(icon);
+          }
+
+          squareDiv.onclick = () => handleSquareClick(squareName);
+          boardElement.appendChild(squareDiv);
+        }
+      }
+    }
+
+    function handleSquareClick(square) {
+      if (game.turn() === 'b' || game.game_over()) return;
+
+      if (selectedSquare === square) {
+        selectedSquare = null;
+      } else {
+        const move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
+
+        if (move) {
+          selectedSquare = null;
+          drawBoard();
+          statusElement.innerText = "Turjo is thinking...";
+          engineWorker.postMessage({ fen: game.fen() });
+        } else {
+          const piece = game.get(square);
+          if (piece && piece.color === 'w') selectedSquare = square;
+        }
+      }
+      drawBoard();
+    }
+
+    engineWorker.onmessage = function (e) {
+      const move = game.move(e.data);
+      drawBoard();
+      updateGameStatus(); // This now works because the function is defined below
+
+      if (window.updateTurjoChat) {
+        window.updateTurjoChat(game, move);
+      }
+    };
+
+    // ADD THIS FUNCTION - It was missing!
+    function updateGameStatus() {
+      if (game.in_checkmate()) {
+        statusElement.innerText = "Checkmate! Game Over.";
+      } else if (game.in_draw()) {
+        statusElement.innerText = "Draw!";
+      } else {
+        statusElement.innerText = "Your Turn (White)";
+      }
+    }
+
+    function undoMove() {
+      game.undo(); game.undo();
+      selectedSquare = null;
+      drawBoard();
+      statusElement.innerText = "Your Turn (White)";
+    }
+
+    function initGame() {
+      game = new Chess();
+      selectedSquare = null;
+      drawBoard();
+      statusElement.innerText = "Your Turn (White)";
+    }
+
+    initGame();
+  </script>
+</body>
+
+</html>
