@@ -10,6 +10,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <title>My Skills | Turjo.codes</title>
   <style>
+    /* ১. গ্লোবাল ব্যাকগ্রাউন্ড ফিক্স: বডি কালার ডার্ক না হলে গ্যাপ দেখা যায় */
+    body {
+      background-color: #021526;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ২. সাদা লাইন ফিক্স করার জন্য স্পেশাল সিএসএস */
+    header,
+    nav {
+      outline: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      /* এটি সাব-পিক্সেল রেন্ডারিং গ্যাপ কমায় */
+      backface-visibility: hidden;
+    }
+
     nav a {
       text-decoration: none !important;
       font-weight: 500;
@@ -30,13 +47,21 @@
       transition: all 0.3s ease-in-out;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     }
+
+    /* ৩. সেকশন ওভারল্যাপ ফিক্স: ন্যাভবারের নিচে সেকশনকে ১ পিক্সেল উপরে তোলা */
+    .skills-section {
+      margin-top: -1px;
+      position: relative;
+      z-index: 10;
+    }
   </style>
 </head>
 
 <body>
 
   <header>
-    <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <nav
+      class="sticky top-[-2px] pt-[10px] z-[100] bg-[#021526]/90 backdrop-blur-md px-6 py-4  border-none shadow-none">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <a href="index.html" class="brand-name flex items-center">
           <span class="text-white">Turjo</span><span class="neon-text">.codes</span>
@@ -44,72 +69,81 @@
         <div class="hidden md:flex items-center gap-8">
           <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
           <a href="project.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Projects</a>
-          <a href="game.html" class="hover:text-[#00d2ff] transition-colors text-gray-300"><i
-              class="fa-solid fa-gamepad"></i> Play</a>
+          <a href="game.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">
+            <i class="fa-solid fa-gamepad"></i> Play
+          </a>
           <a href="skills.html" class="text-[#00d2ff]">Skills</a>
         </div>
-        <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+        <button id="menu-btn" class="md:hidden text-2xl text-white">
+          <i class="fa-solid fa-bars"></i>
+        </button>
       </div>
-      <div id="mobile-menu"
-        class="hidden md:hidden flex-col bg-[#032030] absolute top-full left-0 w-full p-6 gap-4 border-b border-[#00d2ff]/30">
-        <a href="index.html" class="text-lg py-2 border-b border-white/5">Home</a>
-        <a href="project.html" class="text-lg py-2 border-b border-white/5 ">Projects</a>
-        <a href="game.html" class="text-lg py-2 border-b border-white/5 "><i class="fa-solid fa-gamepad"></i> Play</a>
-        <a href="skills.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Skills</a>
 
-        <!-- <a href="game.html"><i class="fa-solid fa-gamepad"></i> Play</a>
-        <a href="skills.html">Skills</a> -->
+      <div id="mobile-menu"
+        class="hidden md:hidden flex-col bg-[#032030] absolute top-[99%] left-0 w-full p-6 gap-4 border-none">
+        <a href="index.html" class="text-lg py-2 border-b border-white/5 text-white">Home</a>
+        <a href="project.html" class="text-lg py-2 border-b border-white/5 text-white">Projects</a>
+        <a href="game.html" class="text-lg py-2 border-b border-white/5 text-white">
+          <i class="fa-solid fa-gamepad"></i> Play
+        </a>
+        <a href="skills.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Skills</a>
       </div>
     </nav>
   </header>
 
   <section class="skills-section">
-    <h1 class="skills-title">My Technical <span>Skills</span></h1>
+    <h1 class="skills-title text-center text-white text-4xl mt-10">My Technical <span class="neon-text">Skills</span>
+    </h1>
 
-    <div class="skills-grid">
-      <div class="skill-card">
+    <div class="skills-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-10">
+      <div
+        class="skill-card bg-[#021526] p-6 rounded-xl border border-[#00d2ff]/20 text-center hover:border-[#00d2ff] transition-all">
         <div class="card-content">
-          <i class="fa-brands fa-html5"></i>
-          <h3>HTML5</h3>
-          <p>Structure & SEO</p>
+          <i class="fa-brands fa-html5 text-5xl text-[#E34F26] mb-4"></i>
+          <h3 class="text-white text-xl font-bold">HTML5</h3>
+          <p class="text-gray-400">Structure & SEO</p>
         </div>
       </div>
 
-      <div class="skill-card">
+      <div
+        class="skill-card bg-[#021526] p-6 rounded-xl border border-[#00d2ff]/20 text-center hover:border-[#00d2ff] transition-all">
         <div class="card-content">
-          <i class="fa-brands fa-css3-alt"></i>
-          <h3>Vanilla CSS</h3>
-          <p>Design & Animation</p>
+          <i class="fa-brands fa-css3-alt text-5xl text-[#1572B6] mb-4"></i>
+          <h3 class="text-white text-xl font-bold">Vanilla CSS</h3>
+          <p class="text-gray-400">Design & Animation</p>
         </div>
       </div>
 
-      <div class="skill-card">
+      <div
+        class="skill-card bg-[#021526] p-6 rounded-xl border border-[#00d2ff]/20 text-center hover:border-[#00d2ff] transition-all">
         <div class="card-content">
-          <i class="fa-solid fa-wind"></i>
-          <h3>Tailwind</h3>
-          <p>Rapid Styling</p>
+          <i class="fa-solid fa-wind text-5xl text-[#06B6D4] mb-4"></i>
+          <h3 class="text-white text-xl font-bold">Tailwind</h3>
+          <p class="text-gray-400">Rapid Styling</p>
         </div>
       </div>
 
-      <div class="skill-card">
+      <div
+        class="skill-card bg-[#021526] p-6 rounded-xl border border-[#00d2ff]/20 text-center hover:border-[#00d2ff] transition-all">
         <div class="card-content">
-          <i class="fa-brands fa-js"></i>
-          <h3>JavaScript</h3>
-          <p>Logic & Interactivity</p>
+          <i class="fa-brands fa-js text-5xl text-[#F7DF1E] mb-4"></i>
+          <h3 class="text-white text-xl font-bold">JavaScript</h3>
+          <p class="text-gray-400">Logic & Interactivity</p>
         </div>
       </div>
 
-      <div class="skill-card">
+      <div
+        class="skill-card bg-[#021526] p-6 rounded-xl border border-[#00d2ff]/20 text-center hover:border-[#00d2ff] transition-all">
         <div class="card-content">
-          <i class="fa-brands fa-react"></i>
-          <h3>React</h3>
-          <p>Component Architecture</p>
+          <i class="fa-brands fa-react text-5xl text-[#61DAFB] mb-4"></i>
+          <h3 class="text-white text-xl font-bold">React</h3>
+          <p class="text-gray-400">Architecture</p>
         </div>
       </div>
     </div>
   </section>
+
   <script>
-    // NAVIGATION LOGIC
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     menuBtn.addEventListener('click', () => {
