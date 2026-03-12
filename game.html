@@ -7,6 +7,7 @@
   <title>Turjo Chess | Turjo.codes </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
+    /* আপনার বিদ্যমান সিএসএস এখানে থাকবে (অপরিবর্তিত) */
     :root {
       --bg-dark: #021526;
       --card-bg: #032030;
@@ -81,7 +82,7 @@
       width: 200%;
       height: 200%;
       background: conic-gradient(from 0deg, transparent, var(--global-clr), var(--btn-clr), var(--global-clr), transparent);
-      animation: rotateLight 2s linear infinite;
+      animation: rotateLight 3s linear infinite;
       z-index: 0;
     }
 
@@ -112,8 +113,8 @@
     }
 
     .profile-card img {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       border: 4px solid var(--btn-clr);
       object-fit: cover;
@@ -129,37 +130,26 @@
       margin-bottom: 8px;
     }
 
-    /* Timers */
     #player-timer,
     #opponent-timer {
       font-family: 'Courier New', Courier, monospace;
       font-size: 1.8rem;
       font-weight: bold;
-      transition: all 0.1s ease;
       background-color: white;
-      padding: 5px;
-      border-radius: 8px;
-      margin-top: 10px;
+      padding: 8px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     #opponent-timer {
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     #player-timer {
       color: var(--btn-clr);
-      margin-bottom: 10px;
-      width: fit-content;
-      '
- margin-left: 50%;
-      margin-right: 50%;
-    }
-
-    .active-timer {
-      color: var(--btn-clr) !important;
-      text-shadow: 0 0 10px var(--btn-clr);
-      transform: scale(1.1);
+      margin: 15px auto;
+      display: inline-block;
     }
 
     .board {
@@ -172,12 +162,12 @@
 
     .square {
       position: relative;
-      /* Add this! */
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: clamp(20px, 5vw, 36px);
+      font-size: clamp(24px, 6vw, 40px);
       cursor: pointer;
+      transition: background 0.2s;
     }
 
     .light {
@@ -189,28 +179,21 @@
     }
 
     .selected {
-      background-color: rgba(0, 210, 255, 0.4) !important;
-    }
-
-    /* Winning/Losing Highlight */
-    .losing-king {
-      background-color: #ff499e !important;
-      box-shadow: inset 0 0 20px rgba(255, 73, 158, 0.8);
-      border: 2px solid white;
+      background-color: rgba(0, 210, 255, 0.5) !important;
     }
 
     .white-piece {
       color: #fff;
-      filter: drop-shadow(0 0 2px var(--bg-dark));
+      filter: drop-shadow(0 0 2px #000);
     }
 
     .black-piece {
-      color: black;
+      color: #000;
       filter: drop-shadow(0 0 5px var(--accent));
     }
 
     .controls {
-      margin-top: 20px;
+      margin-top: 25px;
       text-align: center;
       width: 100%;
     }
@@ -218,26 +201,26 @@
     .btn {
       background: var(--accent);
       border: none;
-      padding: 10px 25px;
-      border-radius: 6px;
+      padding: 12px 30px;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
+      transition: 0.3s;
     }
 
     .btn-outline {
       background: transparent;
-      border: 1px solid var(--accent);
+      border: 2px solid var(--accent);
       color: white;
-      padding: 10px 25px;
-      border-radius: 6px;
+      padding: 10px 30px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: 0.3s;
     }
 
-    #chat {
-      transition: opacity 0.3s ease;
-      min-height: 3em;
-      font-style: italic;
-      color: var(--accent);
+    .btn:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .home-btn {
@@ -253,61 +236,40 @@
       padding: 10px 20px;
       border-radius: 12px;
       border: 1px solid rgba(0, 210, 255, 0.3);
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .home-btn:hover {
-      background: var(--accent);
-      color: #000;
-      transform: translateX(-5px);
-      border-color: var(--accent);
     }
 
     .h3-text {
-      margin: 10px 0 5px;
-      font-size: 2.0rem;
-      padding: 5px;
+      margin: 10px 0;
+      font-size: 1.6rem;
+      padding: 8px 15px;
       color: white;
-      background-color: #ff499e;
+      background-color: var(--btn-clr);
       border-radius: 10px;
     }
 
-    /* Last Move Highlighting */
     .last-move-prev {
-      background-color: rgba(37, 231, 37, 0.527) !important;
-      /* Light Green for old square */
+      background-color: rgba(37, 231, 37, 0.4) !important;
     }
 
     .last-move-now {
-      background-color: rgba(25, 199, 199, 0.993) !important;
-      /* Deeper Green for new square */
+      background-color: rgba(25, 199, 199, 0.7) !important;
     }
 
-    /* Legal Move Dots */
-    /* Regular move dot */
     .legal-dot {
-      width: 15px;
-      height: 15px;
-      background-color: rgba(11, 223, 64, 0.712);
+      width: 16px;
+      height: 16px;
+      background: rgba(11, 223, 64, 0.8);
       border-radius: 50%;
       pointer-events: none;
-      z-index: 5;
     }
 
-    /* Capture square highlight (Red Square) */
     .capture-highlight {
-      /* background-color: rgba(255, 73, 158, 0.349) !important; */
-      /* Your pink/red theme color */
-      box-shadow: inset 0 0 15px rgba(255, 73, 158, 0.8);
+      box-shadow: inset 0 0 15px var(--btn-clr);
       border: 3px solid var(--btn-clr);
+      width: 100%;
+      height: 100%;
+      position: absolute;
       border-radius: 4px;
-      pointer-events: none;
-      z-index: 4;
-    }
-
-    .dark .legal-dot {
-      background-color: rgba(11, 223, 64, 0.712);
     }
   </style>
 </head>
@@ -334,8 +296,9 @@
 
       <div class="controls">
         <div id="player-timer">10:00</div>
-        <div id="status" style="margin-bottom: 15px; font-weight: bold;">Your Turn (White)</div>
-        <div style="display: flex; gap: 10px; justify-content: center;">
+        <div id="status" style="margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;">Click 'Start Game' to Begin
+        </div>
+        <div style="display: flex; gap: 15px; justify-content: center;">
           <button class="btn" onclick="initGame()">Start Game</button>
           <button class="btn-outline" onclick="undoMove()">Undo</button>
         </div>
@@ -352,7 +315,7 @@
     const boardElement = document.getElementById('chessboard');
     const statusElement = document.getElementById('status');
     let selectedSquare = null;
-    let gameStarted = false; // Flag for manual start
+    let gameStarted = false;
 
     const engineWorker = new Worker('chess-worker.js');
 
@@ -361,8 +324,6 @@
       b: 'fa-chess-bishop', q: 'fa-chess-queen', k: 'fa-chess-king'
     };
 
-    /** * Renders the board and pieces 
-     */
     function drawBoard() {
       boardElement.innerHTML = '';
       const boardState = game.board();
@@ -373,7 +334,6 @@
           const squareName = String.fromCharCode(97 + c) + (8 - r);
           squareDiv.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`;
 
-          // Keep the selection highlight if this square is active
           if (selectedSquare === squareName) squareDiv.classList.add('selected');
 
           const piece = boardState[r][c];
@@ -389,8 +349,6 @@
       }
     }
 
-    /** * Highlights legal moves with dots (empty) or red glow (capture)
-     */
     function showLegalMoves(square) {
       const moves = game.moves({ square: square, verbose: true });
       const squares = document.querySelectorAll('.square');
@@ -398,18 +356,11 @@
       moves.forEach(m => {
         const toIdx = (8 - parseInt(m.to[1])) * 8 + (m.to.charCodeAt(0) - 97);
         const targetSquare = squares[toIdx];
-        const pieceOnTarget = game.get(m.to);
-
-        if (pieceOnTarget) {
-          // Capture Highlight: Red Glow
+        if (game.get(m.to)) {
           const captureBox = document.createElement('div');
           captureBox.className = 'capture-highlight';
-          captureBox.style.position = 'absolute';
-          captureBox.style.width = '100%';
-          captureBox.style.height = '100%';
           targetSquare.appendChild(captureBox);
         } else {
-          // Standard Move: Small Dot
           const dot = document.createElement('div');
           dot.className = 'legal-dot';
           targetSquare.appendChild(dot);
@@ -417,29 +368,36 @@
       });
     }
 
-    /** * Highlights the green path of the last move 
-     */
     function highlightLastMove(from, to) {
       const squares = document.querySelectorAll('.square');
       const fromIdx = (8 - parseInt(from[1])) * 8 + (from.charCodeAt(0) - 97);
       const toIdx = (8 - parseInt(to[1])) * 8 + (to.charCodeAt(0) - 97);
 
-      // Use timeout to ensure board is drawn before applying classes
+      squares.forEach(s => s.classList.remove('last-move-prev', 'last-move-now'));
       setTimeout(() => {
         squares[fromIdx].classList.add('last-move-prev');
         squares[toIdx].classList.add('last-move-now');
       }, 10);
     }
 
-    /** * Handles user clicks on the board
-     */
-    function handleSquareClick(square) {
-      if (!gameStarted) {
-        statusElement.innerText = "Please click 'Start Game' to begin!";
-        statusElement.style.color = "var(--btn-clr)";
-        return;
-      }
+    // বটের টার্ন শেষ হওয়ার পর পন্ডারিং শুরু করা
+    function handleBotTurnEnd() {
+      if (game.game_over()) return;
+      console.log("Turjo AI is now pondering during your turn...");
+      engineWorker.postMessage({ fen: game.fen(), mode: 'ponder' });
+    }
 
+    function triggerBotMove() {
+      statusElement.innerText = "Turjo is calculating...";
+      engineWorker.postMessage({
+        fen: game.fen(),
+        mode: 'search',
+        timeLimit: 3000 // পন্ডারিং করা থাকলে এটি ১ সেকেন্ডেরও কম সময়ে মুভ দিবে
+      });
+    }
+
+    function handleSquareClick(square) {
+      if (!gameStarted) return;
       if (game.turn() === 'b' || game.game_over()) return;
 
       if (selectedSquare === square) {
@@ -452,57 +410,43 @@
           selectedSquare = null;
           drawBoard();
           highlightLastMove(move.from, move.to);
-
           if (window.addIncrement) window.addIncrement('w');
 
-          // Check if user won BEFORE bot thinks
           if (!window.checkWinCondition(game)) {
-            statusElement.innerText = "Turjo is thinking...";
-            engineWorker.postMessage({ fen: game.fen() });
+            triggerBotMove(); // বটের চাল শুরু
           }
         } else {
           const piece = game.get(square);
           if (piece && piece.color === 'w') {
             selectedSquare = square;
-            drawBoard(); // Clear previous highlights/dots
-
-            // Highlight current selection
+            drawBoard();
             const idx = (8 - parseInt(square[1])) * 8 + (square.charCodeAt(0) - 97);
             document.querySelectorAll('.square')[idx].classList.add('selected');
-
             showLegalMoves(square);
           }
         }
       }
     }
 
-    /** * Handles AI moves coming from the worker
-     */
     engineWorker.onmessage = function (e) {
       const move = game.move(e.data);
       drawBoard();
       updateGameStatus();
-
       if (move) {
         highlightLastMove(move.from, move.to);
         if (window.addIncrement) window.addIncrement('b');
       }
-
-      if (window.updateTurjoChat) {
-        window.updateTurjoChat(game, move);
-      }
-
+      if (window.updateTurjoChat) window.updateTurjoChat(game, move);
       window.checkWinCondition(game);
+
+      // বট চাল দেওয়ার পর আপনার ভাবার সময় শুরু, তাই বটকে পন্ডারিং করতে পাঠানো
+      handleBotTurnEnd();
     };
 
     function updateGameStatus() {
-      if (game.in_checkmate()) {
-        statusElement.innerText = "Checkmate! Game Over.";
-      } else if (game.in_draw()) {
-        statusElement.innerText = "Draw!";
-      } else {
-        statusElement.innerText = "Your Turn (White)";
-      }
+      if (game.in_checkmate()) statusElement.innerText = "Checkmate! Game Over.";
+      else if (game.in_draw()) statusElement.innerText = "Draw!";
+      else statusElement.innerText = "Your Turn (White)";
     }
 
     function undoMove() {
@@ -511,33 +455,26 @@
       selectedSquare = null;
       drawBoard();
       statusElement.innerText = "Your Turn (White)";
-
-      if (window.updateTurjoChat) {
-        window.updateTurjoChat(game, null, true);
-      }
+      handleBotTurnEnd(); // Undo করার পর আবার পন্ডারিং স্টার্ট
     }
 
-    /** * Starts/Resets the full game logic
-     */
     function initGame() {
       game = new Chess();
       selectedSquare = null;
       gameStarted = true;
       statusElement.style.color = "white";
-
       drawBoard();
       updateGameStatus();
-
       if (window.resetChessTimer && window.startChessTimer) {
         window.resetChessTimer();
         window.startChessTimer(game);
       }
+      // গেম শুরুতে বটকে পন্ডারিং মোডে পাঠিয়ে রাখা
+      engineWorker.postMessage({ fen: game.fen(), mode: 'ponder' });
     }
 
-    // Initial board setup on page load (manual start mode)
     drawBoard();
   </script>
-
 </body>
 
 </html>
