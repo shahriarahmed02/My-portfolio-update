@@ -5,22 +5,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="animation.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <title>My Skills | Turjo.codes</title>
+  <style>
+    nav a {
+      text-decoration: none !important;
+      font-weight: 500;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    .neon-text {
+      color: #00d2ff;
+      text-shadow: 0 0 10px rgba(0, 208, 255, 0.39);
+    }
+
+    #mobile-menu {
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+  </style>
 </head>
 
 <body>
 
   <header>
-    <nav class="navbar-container">
-      <a href="index.html" class="logo">Turjo<span>.codes</span></a>
-      <div class="nav-wrapper">
-        <ul class="nav-list">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="skills.html" class="active">Skills</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
-        </ul>
+    <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="index.html" class="brand-name flex items-center">
+          <span class="text-white">Turjo</span><span class="neon-text">.codes</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
+          <a href="project.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Projects</a>
+          <a href="game.html" class="hover:text-[#00d2ff] transition-colors text-gray-300"><i
+              class="fa-solid fa-gamepad"></i> Play</a>
+          <a href="skills.html" class="text-[#00d2ff]">Skills</a>
+        </div>
+        <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+      </div>
+      <div id="mobile-menu"
+        class="hidden md:hidden flex-col bg-[#032030] absolute top-full left-0 w-full p-6 gap-4 border-b border-[#00d2ff]/30">
+        <a href="index.html" class="text-lg py-2 border-b border-white/5">Home</a>
+        <a href="project.html" class="text-lg py-2 border-b border-white/5 ">Projects</a>
+        <a href="game.html" class="text-lg py-2 border-b border-white/5 "><i class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="skills.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Skills</a>
+
+        <!-- <a href="game.html"><i class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="skills.html">Skills</a> -->
       </div>
     </nav>
   </header>
@@ -70,6 +108,15 @@
       </div>
     </div>
   </section>
+  <script>
+    // NAVIGATION LOGIC
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+  </script>
 </body>
 
 </html>

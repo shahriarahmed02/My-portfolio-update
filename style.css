@@ -16,7 +16,7 @@
     list-style: none;
 }
 
-body {
+.sentry {
     font-family: "Jost", sans-serif;
     background: var(--dark-clr);
     color: var(--text-clr);
