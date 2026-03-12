@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Projects | Turjo.codes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #021526;
+      --card-bg: #032030;
+      --accent: #00d2ff;
+      --btn-clr: #ff499e;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      margin: 0;
+      padding-bottom: 40px;
+    }
+
+    /* --- NAVIGATION STYLES --- */
+    nav a {
+      text-decoration: none !important;
+      font-weight: 500;
+    }
+
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    .neon-text {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    #mobile-menu {
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* --- PROJECT CARD STYLES --- */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      background: conic-gradient(from 0deg, transparent, var(--accent), var(--btn-clr), var(--accent), transparent);
+      animation: rotateLight 3s linear infinite;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      z-index: 1;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes rotateLight {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* --- SWIPER & BADGE STYLES --- */
+    .swiper {
+      width: 100%;
+      height: 220px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #010c15;
+      overflow: hidden;
+    }
+
+    .swiper-slide img {
+      height: 100%;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .swiper-pagination-bullet {
+      background: var(--accent) !important;
+    }
+
+    .view-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      z-index: 10;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .badge-desktop {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .badge-mobile {
+      background: var(--btn-clr);
+      color: #fff;
+    }
+
+    /* --- BUTTONS & ICONS --- */
+    .lang-icon {
+      font-size: 1.4rem;
+      color: var(--accent);
+      filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.3));
+    }
+
+    .btn-open {
+      background: var(--accent);
+      color: #000;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-open:hover {
+      background: var(--btn-clr);
+      color: white;
+      box-shadow: 0 0 15px var(--btn-clr);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="brand-name flex items-center">
+        <span class="text-white">Turjo</span><span class="neon-text">.codes</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
+        <a href="project.html" class="text-[#00d2ff]">Projects</a>
+        <a href="chess.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Play Chess</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <div id="mobile-menu"
+      class="hidden md:hidden flex-col bg-[#032030] absolute top-full left-0 w-full p-6 gap-4 border-b border-[#00d2ff]/30">
+      <a href="index.html" class="text-lg py-2 border-b border-white/5">Home</a>
+      <a href="project.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Projects</a>
+      <a href="game.html"><i class="fa-solid fa-gamepad"></i> Play</a>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 mt-12">
+    <header class="text-center mb-16">
+      <h1 class="text-5xl font-bold text-white">My <span style="color: var(--btn-clr);">Projects</span></h1>
+      <p class="text-gray-400 mt-4">A showcase of my latest web development work</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+
+      <div class="project-card">
+        <div class="card-content p-5">
+          <div class="view-badge badge-desktop">Desktop View</div>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-1.png" alt="Desktop">
+              </div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-2.png" alt="Desktop">
+              </div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/github-mobile-view.png" alt="Mobile">
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">GitHub Issues Tracker</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">A fully functional issue management system featuring
+            real-time tracking and a responsive GitHub-inspired UI.</p>
+          <div class="flex gap-4 mb-8">
+            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
+            <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i>
+            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
+            <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
+          </div>
+          <a href="https://shahriarahmed02.github.io/B13-Assignment-5/" class="btn-open" target="_blank">Open Project <i
+              class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // NAVIGATION LOGIC
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+
+    // SWIPER & DYNAMIC BADGE LOGIC
+    const swiperInstances = new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: { delay: 3000 },
+      pagination: { el: ".swiper-pagination", clickable: true },
+      on: {
+        slideChange: function () {
+          const activeSlide = this.slides[this.activeIndex];
+          const type = activeSlide.getAttribute('data-type');
+          const badge = this.el.closest('.project-card').querySelector('.view-badge');
+
+          if (type === 'mobile') {
+            badge.innerText = "Mobile View";
+            badge.className = "view-badge badge-mobile";
+          } else {
+            badge.innerText = "Desktop View";
+            badge.className = "view-badge badge-desktop";
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
