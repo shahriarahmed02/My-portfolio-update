@@ -1,10 +1,8 @@
-// chess-timer.js
 let playerTime = 600; 
 let opponentTime = 600;
 let timerInterval = null;
-const increment = 3; // 3 seconds increment
+const increment = 3; 
 
-// Function to find the King and turn its square pink
 function highlightLosingKing(game, color) {
     const squares = document.querySelectorAll('.square');
     const boardState = game.board();
@@ -21,7 +19,6 @@ function highlightLosingKing(game, color) {
     }
 }
 
-// Function to add 3 seconds after a move
 window.addIncrement = function(color) {
     if (color === 'w') {
         playerTime += increment;
@@ -46,10 +43,9 @@ window.checkWinCondition = function(game) {
             message = "It's a Draw! 🤝";
         }
 
-        // Show result and ask for rematch
         setTimeout(() => {
             if (confirm(message + "\n\nWould you like a rematch?")) {
-                window.location.reload(); // Simplest way to restart everything
+                window.location.reload();
             }
         }, 800);
         return true;
@@ -68,12 +64,8 @@ window.startChessTimer = function(game) {
 
         if (game.turn() === 'w') {
             playerTime--;
-            document.getElementById('player-timer')?.classList.add('active-timer');
-            document.getElementById('opponent-timer')?.classList.remove('active-timer');
         } else {
             opponentTime--;
-            document.getElementById('opponent-timer')?.classList.add('active-timer');
-            document.getElementById('player-timer')?.classList.remove('active-timer');
         }
 
         updateTimerDisplay();
@@ -107,5 +99,5 @@ window.resetChessTimer = function() {
     playerTime = 600;
     opponentTime = 600;
     if (timerInterval) clearInterval(timerInterval);
-    updateTimerDisplay(); // Ensures UI shows 10:00
+    updateTimerDisplay();
 };

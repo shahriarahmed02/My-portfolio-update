@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Turjo Chess | Turjo.codes </title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    /* আপনার বিদ্যমান সিএসএস এখানে থাকবে (অপরিবর্তিত) */
     :root {
       --bg-dark: #021526;
       --card-bg: #032030;
@@ -24,13 +24,13 @@
       color: white;
       font-family: 'Poppins', sans-serif;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       min-height: 100vh;
-      padding: 15px;
-      box-sizing: border-box;
       overflow-x: hidden;
+    }
+
+    .neon-text {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
     }
 
     .game-container {
@@ -40,6 +40,8 @@
       gap: 25px;
       width: 100%;
       max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
 
     @media (min-width: 992px) {
@@ -192,12 +194,6 @@
       filter: drop-shadow(0 0 5px var(--accent));
     }
 
-    .controls {
-      margin-top: 25px;
-      text-align: center;
-      width: 100%;
-    }
-
     .btn {
       background: var(--accent);
       border: none;
@@ -216,26 +212,6 @@
       border-radius: 8px;
       cursor: pointer;
       transition: 0.3s;
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
-    }
-
-    .home-btn {
-      align-self: flex-start;
-      margin-bottom: 20px;
-      background: var(--card-bg);
-      color: white;
-      text-decoration: none;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      border-radius: 12px;
-      border: 1px solid rgba(0, 210, 255, 0.3);
     }
 
     .h3-text {
@@ -271,19 +247,47 @@
       position: absolute;
       border-radius: 4px;
     }
+
+    /* Added for the losing king effect */
+    .losing-king {
+      background-color: #ff499e !important;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0.6;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <a href="index.html" class="home-btn">
-    <i class="fa-solid fa-arrow-left"></i> Back to Home
-  </a>
+  <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="font-extrabold text-xl flex items-center">
+        <span class="text-white">Turjo</span><span class="neon-text">.codes</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-gray-300">
+        <a href="index.html" class="hover:text-[#00d2ff] transition-colors">Home</a>
+        <a href="project.html" class="hover:text-[#00d2ff] transition-colors">Projects</a>
+        <a href="game.html" class="text-[#00d2ff] flex items-center gap-2"><i class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="skills.html" class="hover:text-[#00d2ff] transition-colors">Skills</a>
+        <a href="contact.html" class="hover:text-[#00d2ff] transition-colors">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </nav>
 
   <div class="game-container">
     <div class="profile-card">
       <img src="./images/myselfcartoon.jpeg" alt="Turjo">
-      <div class="elo-badge">ELO 1600</div>
+      <div class="elo-badge">ELO 600</div>
       <h3 class="h3-text"><i class="fa-solid fa-robot"></i> Turjo AI</h3>
       <div id="opponent-timer">10:00</div>
       <p id="chat">"Are you ready to lose?"</p>
@@ -294,11 +298,10 @@
         <div id="chessboard" class="board"></div>
       </div>
 
-      <div class="controls">
+      <div class="text-center mt-6">
         <div id="player-timer">10:00</div>
-        <div id="status" style="margin-bottom: 15px; font-weight: bold; font-size: 1.1rem;">Click 'Start Game' to Begin
-        </div>
-        <div style="display: flex; gap: 15px; justify-content: center;">
+        <div id="status" class="mb-4 font-bold text-lg">Click 'Start Game' to Begin</div>
+        <div class="flex gap-4 justify-center">
           <button class="btn" onclick="initGame()">Start Game</button>
           <button class="btn-outline" onclick="undoMove()">Undo</button>
         </div>
@@ -311,38 +314,48 @@
   <script src="turjo-chat.js"></script>
 
   <script>
+    /* --- NAVIGATION LOGIC --- */
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
+    mobileMenu.innerHTML = `
+      <a href="index.html" class="text-lg py-3 border-b border-white/5">Home</a>
+      <a href="project.html" class="text-lg py-3 border-b border-white/5">Projects</a>
+      <a href="game.html" class="text-lg py-3 text-[#00d2ff] font-bold">Play</a>
+      <a href="skills.html" class="text-lg py-3 border-b border-white/5">Skills</a>
+      <a href="contact.html" class="text-lg py-3">Contact</a>
+    `;
+    document.body.appendChild(mobileMenu);
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+
+    /* --- CHESS GAME LOGIC --- */
     let game = new Chess();
     const boardElement = document.getElementById('chessboard');
     const statusElement = document.getElementById('status');
     let selectedSquare = null;
     let gameStarted = false;
-
     const engineWorker = new Worker('chess-worker.js');
-
-    const pieceIcons = {
-      p: 'fa-chess-pawn', r: 'fa-chess-rook', n: 'fa-chess-knight',
-      b: 'fa-chess-bishop', q: 'fa-chess-queen', k: 'fa-chess-king'
-    };
+    const pieceIcons = { p: 'fa-chess-pawn', r: 'fa-chess-rook', n: 'fa-chess-knight', b: 'fa-chess-bishop', q: 'fa-chess-queen', k: 'fa-chess-king' };
 
     function drawBoard() {
       boardElement.innerHTML = '';
       const boardState = game.board();
-
       for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
           const squareDiv = document.createElement('div');
           const squareName = String.fromCharCode(97 + c) + (8 - r);
           squareDiv.className = `square ${(r + c) % 2 === 0 ? 'light' : 'dark'}`;
-
           if (selectedSquare === squareName) squareDiv.classList.add('selected');
-
           const piece = boardState[r][c];
           if (piece) {
             const icon = document.createElement('i');
             icon.className = `fa-solid ${pieceIcons[piece.type]} ${piece.color === 'w' ? 'white-piece' : 'black-piece'}`;
             squareDiv.appendChild(icon);
           }
-
           squareDiv.onclick = () => handleSquareClick(squareName);
           boardElement.appendChild(squareDiv);
         }
@@ -352,7 +365,6 @@
     function showLegalMoves(square) {
       const moves = game.moves({ square: square, verbose: true });
       const squares = document.querySelectorAll('.square');
-
       moves.forEach(m => {
         const toIdx = (8 - parseInt(m.to[1])) * 8 + (m.to.charCodeAt(0) - 97);
         const targetSquare = squares[toIdx];
@@ -372,7 +384,6 @@
       const squares = document.querySelectorAll('.square');
       const fromIdx = (8 - parseInt(from[1])) * 8 + (from.charCodeAt(0) - 97);
       const toIdx = (8 - parseInt(to[1])) * 8 + (to.charCodeAt(0) - 97);
-
       squares.forEach(s => s.classList.remove('last-move-prev', 'last-move-now'));
       setTimeout(() => {
         squares[fromIdx].classList.add('last-move-prev');
@@ -380,41 +391,29 @@
       }, 10);
     }
 
-    // বটের টার্ন শেষ হওয়ার পর পন্ডারিং শুরু করা
     function handleBotTurnEnd() {
       if (game.game_over()) return;
-      console.log("Turjo AI is now pondering during your turn...");
       engineWorker.postMessage({ fen: game.fen(), mode: 'ponder' });
     }
 
     function triggerBotMove() {
       statusElement.innerText = "Turjo is calculating...";
-      engineWorker.postMessage({
-        fen: game.fen(),
-        mode: 'search',
-        timeLimit: 3000 // পন্ডারিং করা থাকলে এটি ১ সেকেন্ডেরও কম সময়ে মুভ দিবে
-      });
+      engineWorker.postMessage({ fen: game.fen(), mode: 'search', timeLimit: 3000 });
     }
 
     function handleSquareClick(square) {
-      if (!gameStarted) return;
-      if (game.turn() === 'b' || game.game_over()) return;
-
+      if (!gameStarted || game.turn() === 'b' || game.game_over()) return;
       if (selectedSquare === square) {
         selectedSquare = null;
         drawBoard();
       } else {
         const move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
-
         if (move) {
           selectedSquare = null;
           drawBoard();
           highlightLastMove(move.from, move.to);
           if (window.addIncrement) window.addIncrement('w');
-
-          if (!window.checkWinCondition(game)) {
-            triggerBotMove(); // বটের চাল শুরু
-          }
+          if (!window.checkWinCondition(game)) triggerBotMove();
         } else {
           const piece = game.get(square);
           if (piece && piece.color === 'w') {
@@ -438,8 +437,6 @@
       }
       if (window.updateTurjoChat) window.updateTurjoChat(game, move);
       window.checkWinCondition(game);
-
-      // বট চাল দেওয়ার পর আপনার ভাবার সময় শুরু, তাই বটকে পন্ডারিং করতে পাঠানো
       handleBotTurnEnd();
     };
 
@@ -455,21 +452,19 @@
       selectedSquare = null;
       drawBoard();
       statusElement.innerText = "Your Turn (White)";
-      handleBotTurnEnd(); // Undo করার পর আবার পন্ডারিং স্টার্ট
+      handleBotTurnEnd();
     }
 
     function initGame() {
       game = new Chess();
       selectedSquare = null;
       gameStarted = true;
-      statusElement.style.color = "white";
       drawBoard();
       updateGameStatus();
       if (window.resetChessTimer && window.startChessTimer) {
         window.resetChessTimer();
         window.startChessTimer(game);
       }
-      // গেম শুরুতে বটকে পন্ডারিং মোডে পাঠিয়ে রাখা
       engineWorker.postMessage({ fen: game.fen(), mode: 'ponder' });
     }
 

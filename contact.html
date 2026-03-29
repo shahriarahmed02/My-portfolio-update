@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Me | Turjo.codes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #021526;
+      --card-bg: #032030;
+      --accent: #00d2ff;
+      --btn-clr: #ff499e;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    /* --- NAVIGATION --- */
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+
+    .neon-text {
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    }
+
+    nav a {
+      text-decoration: none !important;
+      transition: all 0.3s ease;
+    }
+
+    /* --- CONTACT CARDS --- */
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+    }
+
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 210, 255, 0.1);
+      color: var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    /* --- LINKEDIN SCROLL ANIMATION --- */
+    @keyframes scrollVertical {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-50%);
+      }
+    }
+
+    .animate-scroll {
+      animation: scrollVertical 12s linear infinite;
+    }
+
+    .animate-scroll:hover {
+      animation-play-state: paused;
+    }
+
+    /* --- FORM STYLES --- */
+    .input-group {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      color: white;
+      width: 100%;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-group:focus {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      font-weight: bold;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      width: 100%;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover {
+      background: var(--btn-clr);
+      color: white;
+      box-shadow: 0 0 20px var(--btn-clr);
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="brand-name flex items-center">
+        <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-[#00d2ff] text-gray-300">Home</a>
+        <a href="project.html" class="hover:text-[#00d2ff] text-gray-300">Projects</a>
+        <a href="game.html" class="hover:text-[#00d2ff] text-gray-300"><i class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="skills.html" class="hover:text-[#00d2ff] text-gray-300">Skills</a>
+        <a href="contact.html" class="text-[#00d2ff]">Contact</a>
+      </div>
+      <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 py-16">
+    <header class="text-center mb-16">
+      <h1 class="text-5xl font-bold">Get In <span style="color: var(--btn-clr);">Touch</span></h1>
+      <p class="text-gray-400 mt-4 italic">Available for new opportunities and collaborations.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <div class="lg:col-span-1 space-y-10">
+
+        <div class="contact-card p-8 flex items-center gap-4">
+          <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <h3 class="font-bold">Email Me</h3>
+            <p class="text-gray-400 text-xs">shahriarahmed32198@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="contact-card overflow-hidden flex h-[280px]">
+          <div class="relative w-1/2 h-full bg-[#010c15] overflow-hidden border-r border-white/5">
+            <div class="animate-scroll space-y-4 p-3">
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">New Post 🚀</p>
+                <p class="text-gray-400">Building a MERN Stack Dream-11 app...</p>
+              </div>
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">Web Dev 💻</p>
+                <p class="text-gray-400">Tailwind CSS v4 is a game changer!</p>
+              </div>
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">Milestone 🏆</p>
+                <p class="text-gray-400">5+ Professional Projects completed.</p>
+              </div>
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">New Post 🚀</p>
+                <p class="text-gray-400">Building a MERN Stack Dream-11 app...</p>
+              </div>
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">Shahriar Ahmed</p>
+                <p class="text-gray-400">Day 8 of #100DaysOfCode Building with Real Data! 🚀</p>
+              </div>
+              <div class="bg-white/5 p-2 rounded-md text-[9px] border border-white/10">
+                <p class="text-[#00d2ff] font-bold">Shahriar Ahmed</p>
+                <p class="text-gray-400">Learning react....</p>
+              </div>
+            </div>
+            <div
+              class="absolute inset-0 pointer-events-none bg-gradient-to-b from-[#032030] via-transparent to-[#032030]">
+            </div>
+          </div>
+          <div class="w-1/2 flex flex-col items-center justify-center p-4 bg-[#032030]">
+            <div class="icon-box mb-2 text-[#00d2ff] bg-[#00d2ff]/10">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <h3 class="font-bold text-sm">LinkedIn</h3>
+            <a href="https://www.linkedin.com/in/shahriarahmedturjo" target="_blank"
+              class="text-[10px] text-[#00d2ff] mt-2 flex items-center gap-1 hover:underline">
+              View Profile <i class="fa-solid fa-external-link text-[8px]"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card p-6 flex items-center gap-4">
+          <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <h3 class="font-bold">Location</h3>
+            <p class="text-gray-400 text-xs">Dhaka, Bangladesh</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2 bg-[#032030] p-8 rounded-[30px] border border-white/5 shadow-2xl">
+        <form action="https://formspree.io/f/xeepalvw" method="POST" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-xs text-gray-500 uppercase tracking-widest mb-2 ml-1">Your Name</label>
+              <input type="text" name="name" required class="input-group" placeholder="Shahriar Ahmed">
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 uppercase tracking-widest mb-2 ml-1">Email Address</label>
+              <input type="email" name="email" required class="input-group" placeholder="example@gmail.com">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 uppercase tracking-widest mb-2 ml-1">Subject</label>
+            <input type="text" name="subject" required class="input-group" placeholder="Project Inquiry">
+          </div>
+          <div>
+            <label class="block text-xs text-gray-500 uppercase tracking-widest mb-2 ml-1">Message</label>
+            <textarea name="message" required rows="6" class="input-group"
+              placeholder="Tell me about your project..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            Send Message <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    /* --- 1. FORM SUBMISSION LOGIC (AJAX) --- */
+    const form = document.querySelector('form');
+    const btn = form.querySelector('button');
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.innerHTML = 'Sending... <i class="fa-solid fa-spinner fa-spin"></i>';
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          btn.innerHTML = 'Sent! <i class="fa-solid fa-check"></i>';
+          btn.style.background = '#00ff88';
+          form.reset();
+          alert("Thanks for your message! I'll get back to you soon.");
+        } else {
+          throw new Error();
+        }
+      } catch (error) {
+        btn.innerHTML = 'Error! <i class="fa-solid fa-xmark"></i>';
+        btn.disabled = false;
+      }
+    };
+
+    /* --- 2. MOBILE MENU LOGIC --- */
+    const menuBtn = document.getElementById('menu-btn');
+
+    // Create the menu element once
+    const mobileMenu = document.createElement('div');
+    mobileMenu.id = "mobile-nav";
+    // Added z-[999] to ensure it stays on top of the form and cards
+    mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
+    mobileMenu.innerHTML = `
+    <a href="index.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Home</a>
+    <a href="project.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Projects</a>
+    <a href="game.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]"><i class="fa-solid fa-gamepad"></i> Play </a>
+    <a href="skills.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Skills</a>
+    <a href="contact.html" class="text-lg py-3 text-[#00d2ff] font-bold">Contact</a>
+  `;
+    document.body.appendChild(mobileMenu);
+
+    menuBtn.addEventListener('click', () => {
+      // This part actually toggles the visibility
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>'; // Change icon to X
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; // Change back to Hamburger
+      }
+    });
+
+    // Auto-close menu when a link is clicked
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+  </script>
+</body>
+
+</html>

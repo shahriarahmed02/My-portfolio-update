@@ -16,7 +16,6 @@ let startTime = 0;
 let currentTimeLimit = 3000; 
 let ponderedBestMove = null;
 
-// মুভ অর্ডারিং: ভালো চালগুলো আগে চেক করলে বট দ্রুত সিদ্ধান্ত নিতে পারে
 function orderMoves(moves) {
     return moves.sort((a, b) => {
         let scoreA = 0;
@@ -97,7 +96,6 @@ onmessage = function(e) {
     let globalBestMove = moves[0].san;
     let isWhite = game.turn() === 'w';
 
-    // Iterative Deepening: ধীরে ধীরে গভীরে যাওয়া
     for (let depth = 1; depth <= 4; depth++) { 
         if (Date.now() - startTime > (currentTimeLimit * 0.9)) break; 
         
@@ -111,7 +109,6 @@ onmessage = function(e) {
             let boardValue = minimax(depth - 1, -1000000, 1000000, !isWhite);
             game.undo();
 
-            // Anti-Repetition Logic: সমান স্কোরের চালের মধ্যে র্যান্ডমনেস যোগ করা
             if (isWhite) {
                 if (boardValue > bestValue) {
                     bestValue = boardValue;
