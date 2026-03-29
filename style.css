@@ -85,6 +85,7 @@ header {
     font-weight: 600;
     box-shadow: 0 0 10px var(--btn-clr);
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .cvbtn:hover { box-shadow: 0 0 20px var(--btn-clr); }

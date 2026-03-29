@@ -50,9 +50,12 @@
     .project-card {
       position: relative;
       overflow: hidden;
+      /* Ensure this is strictly enforced */
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.05);
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+      /* Add this to prevent the rotating pseudo-element from expanding the page width */
+      isolation: isolate;
     }
 
     .project-card::before {
@@ -188,7 +191,7 @@
   <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href="index.html" class="brand-name flex items-center">
-        <span class="text-white">Turjo</span><span class="neon-text">.codes</span>
+        <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
       </a>
       <div class="hidden md:flex items-center gap-8">
         <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
@@ -320,7 +323,47 @@
               class="fa-brands fa-github"></i></a>
         </div>
       </div>
+      <!-- No-4 -->
+      <div class="project-card">
+        <div class="card-content p-5">
+          <div class="view-badge badge-desktop">Desktop View</div>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Cri-d-1.png" alt="Desktop">
+              </div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-2.png" alt="Desktop">
+              </div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-3.png" alt="Desktop">
+              </div>
 
+              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-1.jpeg" alt="Mobile">
+              </div>
+
+              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-2.jpeg" alt="Mobile">
+              </div>
+
+
+
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">Cricket Dream XI</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+            A lightweight, responsive cricket manager for building 11-player "Dream Teams" within a strict virtual coin
+            budget.
+            Simple player adding/removing logic.
+          </p>
+          <div class="flex gap-4 mb-8">
+            <i class="fa-brands fa-react lang-icon" title="React"></i>
+            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
+            <!-- <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i> -->
+            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
+            <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
+          </div>
+          <a href="https://cricket-dream-11.vercel.app/" class="btn-open" target="_blank">Open Project <i
+              class="fa-solid fa-play fa-rotate-270"></i></a>
+        </div>
+      </div>
     </div>
   </div>
 
