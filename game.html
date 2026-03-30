@@ -28,11 +28,24 @@
       overflow-x: hidden;
     }
 
+    /* --- NAVIGATION STYLES (Matched to Contact/Skills) --- */
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+
     .neon-text {
       color: var(--accent);
       text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
     }
 
+    nav a {
+      text-decoration: none !important;
+      transition: all 0.3s ease;
+    }
+
+    /* --- CHESS GAME STYLES --- */
     .game-container {
       display: flex;
       flex-direction: column;
@@ -248,7 +261,6 @@
       border-radius: 4px;
     }
 
-    /* Added for the losing king effect */
     .losing-king {
       background-color: #ff499e !important;
       animation: pulse 1s infinite alternate;
@@ -270,15 +282,15 @@
 
   <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="index.html" class="font-extrabold text-xl flex items-center">
+      <a href="index.html" class="brand-name flex items-center">
         <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
       </a>
-      <div class="hidden md:flex items-center gap-8 text-gray-300">
-        <a href="index.html" class="hover:text-[#00d2ff] transition-colors">Home</a>
-        <a href="project.html" class="hover:text-[#00d2ff] transition-colors">Projects</a>
-        <a href="game.html" class="text-[#00d2ff] flex items-center gap-2"><i class="fa-solid fa-gamepad"></i> Play</a>
-        <a href="skills.html" class="hover:text-[#00d2ff] transition-colors">Skills</a>
-        <a href="contact.html" class="hover:text-[#00d2ff] transition-colors">Contact</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-[#00d2ff] text-gray-300">Home</a>
+        <a href="project.html" class="hover:text-[#00d2ff] text-gray-300">Projects</a>
+        <a href="game.html" class="text-[#00d2ff] flex items-center gap-1"><i class="fa-solid fa-gamepad"></i>Play</a>
+        <a href="skills.html" class="hover:text-[#00d2ff] text-gray-300">Skills</a>
+        <a href="contact.html" class="hover:text-[#00d2ff] text-gray-300">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
     </div>
@@ -314,22 +326,30 @@
   <script src="turjo-chat.js"></script>
 
   <script>
-    /* --- NAVIGATION LOGIC --- */
+    /* --- UPDATED MOBILE MENU LOGIC --- */
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.createElement('div');
+    mobileMenu.id = "mobile-nav";
     mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
     mobileMenu.innerHTML = `
-      <a href="index.html" class="text-lg py-3 border-b border-white/5">Home</a>
-      <a href="project.html" class="text-lg py-3 border-b border-white/5">Projects</a>
-      <a href="game.html" class="text-lg py-3 text-[#00d2ff] font-bold">Play</a>
-      <a href="skills.html" class="text-lg py-3 border-b border-white/5">Skills</a>
-      <a href="contact.html" class="text-lg py-3">Contact</a>
+      <a href="index.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff] text-white">Home</a>
+      <a href="project.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff] text-white">Projects</a>
+      <a href="game.html" class="text-lg py-3 border-b border-white/5 text-[#00d2ff] font-bold"><i class="fa-solid fa-gamepad"></i> Play </a>
+      <a href="skills.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff] text-white">Skills</a>
+      <a href="contact.html" class="text-lg py-3 hover:text-[#00d2ff] text-white">Contact</a>
     `;
     document.body.appendChild(mobileMenu);
 
     menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('flex');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
     });
 
     /* --- CHESS GAME LOGIC --- */

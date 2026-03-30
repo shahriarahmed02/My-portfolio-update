@@ -4,34 +4,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="animation.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <title>My Skills | Turjo.codes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
-    /* ১. গ্লোবাল ব্যাকগ্রাউন্ড ফিক্স: বডি কালার ডার্ক না হলে গ্যাপ দেখা যায় */
+    :root {
+      --bg-dark: #021526;
+      --card-bg: #032030;
+      --accent: #00d2ff;
+      --btn-clr: #ff499e;
+    }
+
     body {
-      background-color: #021526;
+      background-color: var(--bg-dark);
+      font-family: 'Poppins', sans-serif;
+      color: white;
       margin: 0;
-      padding: 0;
+      overflow-x: hidden;
     }
 
-    /* ২. সাদা লাইন ফিক্স করার জন্য স্পেশাল সিএসএস */
-    header,
-    nav {
-      outline: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      /* এটি সাব-পিক্সেল রেন্ডারিং গ্যাপ কমায় */
-      backface-visibility: hidden;
-    }
-
-    nav a {
-      text-decoration: none !important;
-      font-weight: 500;
-    }
-
+    /* --- NAVIGATION (Matches Contact) --- */
     .brand-name {
       font-weight: 800;
       font-size: 1.5rem;
@@ -39,113 +31,166 @@
     }
 
     .neon-text {
-      color: #00d2ff;
-      text-shadow: 0 0 10px rgba(0, 208, 255, 0.39);
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
     }
 
-    #mobile-menu {
-      transition: all 0.3s ease-in-out;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    nav a {
+      text-decoration: none !important;
+      transition: all 0.3s ease;
     }
 
-    /* ৩. সেকশন ওভারল্যাপ ফিক্স: ন্যাভবারের নিচে সেকশনকে ১ পিক্সেল উপরে তোলা */
-    .skills-section {
-      margin-top: -1px;
-      position: relative;
-      z-index: 10;
+    /* --- SKILL CARDS (Matches Contact Card Style) --- */
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
+    }
+
+    /* --- ICON BOX (The sophisticated accent box) --- */
+    .icon-box {
+      width: 70px;
+      height: 70px;
+      background: rgba(0, 210, 255, 0.1);
+      color: var(--accent);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .skill-card:hover .icon-box {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px var(--accent);
+    }
+
+    .skill-category {
+      color: var(--btn-clr);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
     }
   </style>
 </head>
 
 <body>
-
-  <header>
-    <nav
-      class="sticky top-[-2px] pt-[10px] z-[100] bg-[#021526]/90 backdrop-blur-md px-6 py-4  border-none shadow-none">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="index.html" class="brand-name flex items-center">
-          <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
-        </a>
-        <div class="hidden md:flex items-center gap-8">
-          <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
-          <a href="project.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Projects</a>
-          <a href="game.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">
-            <i class="fa-solid fa-gamepad"></i> Play
-          </a>
-          <a href="skills.html" class="text-[#00d2ff]">Skills</a>
-          <a href="contact.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Contact</a>
-        </div>
-        <button id="menu-btn" class="md:hidden text-2xl text-white">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+  <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="brand-name flex items-center">
+        <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-[#00d2ff] text-gray-300">Home</a>
+        <a href="project.html" class="hover:text-[#00d2ff] text-gray-300">Projects</a>
+        <a href="game.html" class="hover:text-[#00d2ff] text-gray-300"><i class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="skills.html" class="text-[#00d2ff]">Skills</a>
+        <a href="contact.html" class="hover:text-[#00d2ff] text-gray-300">Contact</a>
       </div>
-
-      <div id="mobile-menu"
-        class="hidden md:hidden flex-col bg-[#032030] absolute top-[99%] left-0 w-full p-6 gap-4 border-none">
-        <a href="index.html" class="text-lg py-2 border-b border-white/5 text-white">Home</a>
-        <a href="project.html" class="text-lg py-2 border-b border-white/5 text-white">Projects</a>
-        <a href="game.html" class="text-lg py-2 border-b border-white/5 text-white">
-          <i class="fa-solid fa-gamepad"></i> Play
-        </a>
-        <a href="skills.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Skills</a>
-        <a href="contact.html" class="text-lg py-2 border-b border-white/5 text-white">Contact</a>
-      </div>
-    </nav>
-  </header>
-
-  <section class="skills-section">
-    <h1 class="skills-title text-center text-white text-4xl mt-10">My Technical <span class="neon-text">Skills</span>
-    </h1>
-
-    <div class="skills-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-10">
-      <div class="skill-card bg-[#021526] p-6 rounded-xl border/20 text-center  transition-all">
-        <div class="card-content">
-          <i class="fa-brands fa-html5 text-5xl text-[#E34F26] mb-4"></i>
-          <h3 class="text-white text-xl font-bold">HTML5</h3>
-          <p class="text-gray-400">Structure & SEO</p>
-        </div>
-      </div>
-
-      <div class="skill-card bg-[#021526] p-6 rounded-xl border/20 text-center transition-all">
-        <div class="card-content">
-          <i class="fa-brands fa-css3-alt text-5xl text-[#1572B6] mb-4"></i>
-          <h3 class="text-white text-xl font-bold">Vanilla CSS</h3>
-          <p class="text-gray-400">Design & Animation</p>
-        </div>
-      </div>
-
-      <div class="skill-card bg-[#021526] p-6 rounded-xl border/20 text-center  transition-all">
-        <div class="card-content">
-          <i class="fa-solid fa-wind text-5xl text-[#06B6D4] mb-4"></i>
-          <h3 class="text-white text-xl font-bold">Tailwind</h3>
-          <p class="text-gray-400">Rapid Styling</p>
-        </div>
-      </div>
-
-      <div class="skill-card bg-[#021526] p-6 rounded-xl border/20 text-center transition-all">
-        <div class="card-content">
-          <i class="fa-brands fa-js text-5xl text-[#F7DF1E] mb-4"></i>
-          <h3 class="text-white text-xl font-bold">JavaScript</h3>
-          <p class="text-gray-400">Logic & Interactivity</p>
-        </div>
-      </div>
-
-      <div class="skill-card bg-[#021526] p-6 rounded-xl border/20 text-center  transition-all">
-        <div class="card-content">
-          <i class="fa-brands fa-react text-5xl text-[#61DAFB] mb-4"></i>
-          <h3 class="text-white text-xl font-bold">React</h3>
-          <p class="text-gray-400">Architecture</p>
-        </div>
-      </div>
+      <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
     </div>
-  </section>
+  </nav>
+
+  <div class="max-w-6xl mx-auto px-4 py-16">
+    <header class="text-center mb-16">
+      <h1 class="text-5xl font-bold">Technical <span style="color: var(--btn-clr);">Expertise</span></h1>
+      <p class="text-gray-400 mt-4 italic">Modern tools and technologies I use to bring ideas to life.</p>
+    </header>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div class="skill-card">
+        <!-- <p class="skill-category">Frontend</p> -->
+        <div class="icon-box"><i class="fa-brands fa-html5"></i></div>
+        <h3 class="text-xl font-bold mb-2">HTML5</h3>
+        <p class="text-gray-400 text-sm">Semantic structures, accessibility, and high-performance SEO layouts.</p>
+      </div>
+
+      <div class="skill-card">
+        <!-- <p class="skill-category">Design</p> -->
+        <div class="icon-box"><i class="fa-brands fa-css3"></i></div>
+        <h3 class="text-xl font-bold mb-2">CSS3</h3>
+        <p class="text-gray-400 text-sm">Responsive Design & Animations</p>
+      </div>
+      <div class="skill-card">
+        <!-- <p class="skill-category">Design</p> -->
+        <div class="icon-box"><i class="fa-solid fa-wind"></i></div>
+        <h3 class="text-xl font-bold mb-2">Tailwind CSS</h3>
+        <p class="text-gray-400 text-sm">Utility-first styling, responsive UI design, and modern animations.</p>
+      </div>
+
+      <div class="skill-card">
+        <!-- <p class="skill-category">Core</p> -->
+        <div class="icon-box"><i class="fa-brands fa-js"></i></div>
+        <h3 class="text-xl font-bold mb-2">JavaScript</h3>
+        <p class="text-gray-400 text-sm">ES6+ syntax, asynchronous programming, and DOM manipulation.</p>
+      </div>
+
+      <div class="skill-card">
+        <!-- <p class="skill-category">Framework</p> -->
+        <div class="icon-box"><i class="fa-brands fa-react"></i></div>
+        <h3 class="text-xl font-bold mb-2">React.js</h3>
+        <p class="text-gray-400 text-sm">Component-based architecture, hooks, and state management.</p>
+      </div>
+
+      <!-- <div class="skill-card">
+        <p class="skill-category">Backend</p>
+        <div class="icon-box"><i class="fa-brands fa-node-js"></i></div>
+        <h3 class="text-xl font-bold mb-2">Node.js</h3>
+        <p class="text-gray-400 text-sm">Scalable server-side logic and RESTful API development.</p>
+      </div> -->
+
+      <div class="skill-card">
+        <!-- <p class="skill-category">Workflow</p> -->
+        <div class="icon-box"><i class="fa-brands fa-git-alt"></i></div>
+        <h3 class="text-xl font-bold mb-2">Version Control</h3>
+        <p class="text-gray-400 text-sm">Efficient collaboration using Git, GitHub, and deployment pipelines.</p>
+      </div>
+
+    </div>
+  </div>
 
   <script>
+    /* --- MOBILE MENU LOGIC (Matches Contact) --- */
     const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.id = "mobile-nav";
+    mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
+    mobileMenu.innerHTML = `
+      <a href="index.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Home</a>
+      <a href="project.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Projects</a>
+      <a href="game.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]"><i class="fa-solid fa-gamepad"></i> Play </a>
+      <a href="skills.html" class="text-lg py-3 text-[#00d2ff] font-bold border-b border-white/5">Skills</a>
+      <a href="contact.html" class="text-lg py-3 hover:text-[#00d2ff]">Contact</a>
+    `;
+    document.body.appendChild(mobileMenu);
+
     menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('flex');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
     });
   </script>
 </body>
