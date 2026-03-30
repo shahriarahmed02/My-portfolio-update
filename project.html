@@ -184,6 +184,99 @@
       color: white;
       box-shadow: 0 0 15px var(--btn-clr);
     }
+
+    /* Base style for the Repo button to match your Open Project button */
+    /* Container to align them */
+    /* Container to keep buttons side-by-side */
+    .project-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    /* 1. Base style for the small GitHub button */
+    .btn-github-small {
+      position: relative;
+      /* Essential for tooltip positioning */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      /* Fixed width for square look */
+      height: 48px;
+      /* Matches your Open Project height */
+      background-color: #00eeff;
+      /* Initial cyan color */
+      color: #000;
+      /* Black icon */
+      border-radius: 12px;
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    /* 2. Hover state: Turns Green */
+    .btn-github-small:hover {
+      background-color: #22c55e;
+      /* Green Hex */
+      color: #fff;
+      /* White icon on green */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    }
+
+    /* 3. The Tooltip Box (Floating Text) */
+    .btn-github-small::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 130%;
+      /* Sit above the button */
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background-color: #1f2937;
+      color: #22c55e;
+      /* Green text matching hover */
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      pointer-events: none;
+    }
+
+    /* 4. Tooltip Arrow */
+    .btn-github-small::before {
+      content: '';
+      position: absolute;
+      bottom: 115%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px;
+      border-style: solid;
+      border-color: #1f2937 transparent transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    /* Show Tooltip & Arrow on Hover */
+    .btn-github-small:hover::after,
+    .btn-github-small:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .btn-open {
+      flex-grow: 1;
+      /* This makes the "Open Project" button take the remaining space */
+    }
   </style>
 </head>
 
@@ -248,8 +341,15 @@
             <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
             <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
           </div>
-          <a href="https://shahriarahmed02.github.io/B13-Assignment-5/" class="btn-open" target="_blank">Open Project <i
-              class="fa-brands fa-github"></i></a>
+
+          <div class="project-actions">
+            <a href="https://shahriarahmed02.github.io/B13-Assignment-5/" class="btn-open" target="_blank">Open Project
+              <i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-5" class="btn-github-small" target="_blank"
+              data-tooltip="View Repository">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
         </div>
       </div>
       <!-- No-2 -->
@@ -279,8 +379,14 @@
             <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
             <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
           </div>
-          <a href="https://shahriarahmed02.github.io/B13-Assignment-4/" class="btn-open" target="_blank">Open Project <i
-              class="fa-brands fa-github"></i></a>
+          <div class="project-actions">
+            <a href="https://shahriarahmed02.github.io/B13-Assignment-4/" class="btn-open" target="_blank">Open Project
+              <i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-4" class="btn-github-small" target="_blank"
+              data-tooltip="View Repository">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
         </div>
       </div>
       <!-- No-3 -->
@@ -322,8 +428,13 @@
             <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
             <!-- <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i> -->
           </div>
-          <a href="https://shahriarahmed02.github.io/B13-Assignment-2/" class="btn-open" target="_blank">Open Project <i
-              class="fa-brands fa-github"></i></a>
+          <div class="project-actions"><a href="https://shahriarahmed02.github.io/B13-Assignment-2/" class="btn-open"
+              target="_blank">Open Project <i class="fa-brands fa-github"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-2" class="btn-github-small" target="_blank"
+              data-tooltip="View Repository">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
         </div>
       </div>
       <!-- No-4 -->
@@ -362,46 +473,85 @@
             <!-- <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i> -->
             <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
             <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
+
           </div>
-          <a href="https://cricket-dream-11.vercel.app/" class="btn-open" target="_blank">Open Project <i
-              class="fa-solid fa-play fa-rotate-270"></i></a>
+          <div class="project-actions">
+            <a href="https://cricket-dream-11.vercel.app/" class="btn-open" target="_blank">
+              Open Project <i class="fa-solid fa-caret-up"></i>
+            </a>
+
+            <a href="https://github.com/shahriarahmed02/Cricket-dream-11" class="btn-github-small" target="_blank"
+              data-tooltip="View Repository">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    // NAVIGATION LOGIC
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('flex');
-    });
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script>
+        // NAVIGATION LOGIC
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
 
-    // SWIPER & DYNAMIC BADGE LOGIC
-    const swiperInstances = new Swiper(".mySwiper", {
-      loop: true,
-      autoplay: { delay: 3000 },
-      pagination: { el: ".swiper-pagination", clickable: true },
-      on: {
-        slideChange: function () {
-          const activeSlide = this.slides[this.activeIndex];
+        // Using optional chaining (?.) prevents errors if the button is missing on some pages
+        menuBtn?.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          mobileMenu.classList.toggle('flex');
+        });
+
+        // SWIPER & DYNAMIC BADGE LOGIC
+        const swiperInstances = new Swiper(".mySwiper", {
+          loop: true,
+
+          // --- MOBILE SMOOTHNESS UPDATES ---
+          grabCursor: true,             // Shows 'hand' icon on PC
+          touchRatio: 1.5,              // Makes swiping feel more 'responsive' on mobile
+          resistanceRatio: 0.85,        // Adds a smooth 'rubber band' effect at edges
+          slideToClickedSlide: true,    // Good for UX
+
+          autoplay: {
+            delay: 3000,
+            disableOnInteraction: false, // Prevents autoplay from stopping forever after a user touches it
+            pauseOnMouseEnter: true      // Good for PC users
+          },
+
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+
+          on: {
+            // "init" ensures the badge is correct the moment the page loads
+            init: function () {
+              updateBadge(this);
+            },
+            // "slideChange" updates as the user swipes
+            slideChange: function () {
+              updateBadge(this);
+            }
+          }
+        });
+
+        // REUSABLE BADGE FUNCTION (Cleans up your code)
+        function updateBadge(swiper) {
+          const activeSlide = swiper.slides[swiper.activeIndex];
+          if (!activeSlide) return;
+
           const type = activeSlide.getAttribute('data-type');
-          const badge = this.el.closest('.project-card').querySelector('.view-badge');
+          const badge = swiper.el.closest('.project-card').querySelector('.view-badge');
 
-          if (type === 'mobile') {
-            badge.innerText = "Mobile View";
-            badge.className = "view-badge badge-mobile";
-          } else {
-            badge.innerText = "Desktop View";
-            badge.className = "view-badge badge-desktop";
+          if (badge) {
+            if (type === 'mobile') {
+              badge.innerText = "Mobile View";
+              badge.className = "view-badge badge-mobile";
+            } else {
+              badge.innerText = "Desktop View";
+              badge.className = "view-badge badge-desktop";
+            }
           }
         }
-      }
-    });
-  </script>
+      </script>
 </body>
 
 </html>
