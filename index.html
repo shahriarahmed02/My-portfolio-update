@@ -47,7 +47,8 @@
                     <li><a href="game.html"><i class="fa-solid fa-gamepad"></i> Play</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-                <a href="#" class="cvbtn">Download CV <i class="fa-solid fa-download"></i></a>
+                <a href="javascript:void(0)" onclick="showCvAlert()" class="cvbtn">Download CV <i
+                        class="fa-solid fa-download"></i></a>
             </div>
         </nav>
     </header>
@@ -113,6 +114,30 @@
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-xmark');
         };
+
+        function showCvAlert() {
+            // Select the button using its class
+            const btn = document.querySelector('.cvbtn');
+
+            // Save the original content so we can change it back later
+            const originalContent = btn.innerHTML;
+            const originalBg = window.getComputedStyle(btn).backgroundColor;
+
+            // 1. Change the appearance to "Warning/Coming Soon" state
+            btn.innerHTML = 'Coming Soon! <i class="fa-solid fa-hourglass-half"></i>';
+            btn.style.background = 'var(--btn-clr)'; // Uses your pink #ff499e
+            btn.style.boxShadow = '0 0 20px var(--btn-clr)';
+            btn.style.pointerEvents = 'none'; // Prevent double-clicking
+
+            // 2. Wait 3 seconds, then revert to original
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.style.background = ''; // Reverts to your CSS default (blue)
+                btn.style.boxShadow = '';
+                btn.style.pointerEvents = 'auto';
+            }, 3000);
+        }
+
 
         // Close menu on link click
         document.querySelectorAll('.nav-list a').forEach(link => {
