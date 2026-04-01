@@ -24,12 +24,7 @@
       padding-bottom: 40px;
     }
 
-    /* --- NAVIGATION STYLES --- */
-    nav a {
-      text-decoration: none !important;
-      font-weight: 500;
-    }
-
+    /* --- NAVIGATION --- */
     .brand-name {
       font-weight: 800;
       font-size: 1.5rem;
@@ -41,20 +36,13 @@
       text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
     }
 
-    #mobile-menu {
-      transition: all 0.3s ease-in-out;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    /* --- PROJECT CARD STYLES --- */
+    /* --- PROJECT CARD ANIMATION --- */
     .project-card {
       position: relative;
       overflow: hidden;
-      /* Ensure this is strictly enforced */
-      border-radius: 20px;
+      border-radius: 24px;
       background: rgba(255, 255, 255, 0.05);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-      /* Add this to prevent the rotating pseudo-element from expanding the page width */
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       isolation: isolate;
     }
 
@@ -66,15 +54,14 @@
       top: -50%;
       left: -50%;
       background: conic-gradient(from 0deg, transparent, var(--accent), var(--btn-clr), var(--accent), transparent);
-      animation: rotateLight 3s linear infinite;
+      animation: rotateLight 4s linear infinite;
       z-index: 0;
       opacity: 0;
       transition: opacity 0.4s ease;
     }
 
     .project-card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      transform: translateY(-12px);
     }
 
     .project-card:hover::before {
@@ -86,7 +73,7 @@
       position: absolute;
       inset: 4px;
       background: var(--card-bg);
-      border-radius: 16px;
+      border-radius: 20px;
       z-index: 1;
     }
 
@@ -105,33 +92,20 @@
       }
     }
 
-    /* --- SWIPER & BADGE STYLES --- */
+    /* --- SWIPER --- */
     .swiper {
       width: 100%;
       height: 220px;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .swiper-slide {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: #010c15;
-      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .swiper-slide img {
       height: 100%;
-      width: auto;
-      max-width: 100%;
+      width: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
-    }
-
-    .swiper-pagination-bullet {
-      background: var(--accent) !important;
     }
 
     .view-badge {
@@ -139,13 +113,12 @@
       top: 15px;
       right: 15px;
       padding: 5px 12px;
-      border-radius: 20px;
+      border-radius: 8px;
       font-size: 0.7rem;
-      font-weight: bold;
-      text-transform: uppercase;
+      font-weight: 800;
       z-index: 10;
+      text-transform: uppercase;
       letter-spacing: 1px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .badge-desktop {
@@ -158,124 +131,64 @@
       color: #fff;
     }
 
-    /* --- BUTTONS & ICONS --- */
     .lang-icon {
       font-size: 1.4rem;
       color: var(--accent);
-      filter: drop-shadow(0 0 5px rgba(0, 210, 255, 0.3));
+      opacity: 0.8;
+      transition: 0.3s;
+    }
+
+    .lang-icon:hover {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    /* --- BUTTONS --- */
+    .project-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .btn-open {
+      flex: 1;
       background: var(--accent);
       color: #000;
       padding: 12px;
-      border-radius: 10px;
-      font-weight: bold;
+      border-radius: 12px;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      text-decoration: none;
+      gap: 8px;
+      transition: 0.3s;
+      text-transform: uppercase;
+      font-size: 0.8rem;
     }
 
     .btn-open:hover {
       background: var(--btn-clr);
       color: white;
-      box-shadow: 0 0 15px var(--btn-clr);
+      box-shadow: 0 0 20px rgba(255, 73, 158, 0.4);
     }
 
-    /* Base style for the Repo button to match your Open Project button */
-    /* Container to align them */
-    /* Container to keep buttons side-by-side */
-    .project-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    /* 1. Base style for the small GitHub button */
     .btn-github-small {
-      position: relative;
-      /* Essential for tooltip positioning */
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 50px;
-      /* Fixed width for square look */
-      height: 48px;
-      /* Matches your Open Project height */
-      background-color: #00eeff;
-      /* Initial cyan color */
-      color: #000;
-      /* Black icon */
       border-radius: 12px;
-      font-size: 1.4rem;
-      transition: all 0.3s ease;
-      text-decoration: none;
+      font-size: 1.5rem;
+      transition: 0.3s;
     }
 
-    /* 2. Hover state: Turns Green */
     .btn-github-small:hover {
-      background-color: #22c55e;
-      /* Green Hex */
-      color: #fff;
-      /* White icon on green */
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
-    }
-
-    /* 3. The Tooltip Box (Floating Text) */
-    .btn-github-small::after {
-      content: attr(data-tooltip);
-      position: absolute;
-      bottom: 130%;
-      /* Sit above the button */
-      left: 50%;
-      transform: translateX(-50%) translateY(10px);
-      background-color: #1f2937;
       color: #22c55e;
-      /* Green text matching hover */
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      pointer-events: none;
-    }
-
-    /* 4. Tooltip Arrow */
-    .btn-github-small::before {
-      content: '';
-      position: absolute;
-      bottom: 115%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-width: 6px;
-      border-style: solid;
-      border-color: #1f2937 transparent transparent transparent;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    /* Show Tooltip & Arrow on Hover */
-    .btn-github-small:hover::after,
-    .btn-github-small:hover::before {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .btn-open {
-      flex-grow: 1;
-      /* This makes the "Open Project" button take the remaining space */
+      background: #fff;
+      border-color: #fff;
     }
   </style>
 </head>
@@ -287,271 +200,256 @@
         <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
       </a>
       <div class="hidden md:flex items-center gap-8">
-        <a href="index.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Home</a>
-        <a href="project.html" class="text-[#00d2ff]">Projects</a>
-        <a href="game.html" class="hover:text-[#00d2ff] transition-colors text-gray-300"><i
+        <a href="index.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Home</a>
+        <a href="project.html" class="text-[#00d2ff] font-semibold">Projects</a>
+        <a href="game.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors"><i
             class="fa-solid fa-gamepad"></i> Play</a>
-        <a href="skills.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Skills</a>
-        <a href="contact.html" class="hover:text-[#00d2ff] transition-colors text-gray-300">Contact</a>
+        <a href="skills.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Skills</a>
+        <a href="about.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">About</a>
+        <a href="contact.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Contact</a>
       </div>
       <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
     </div>
-    <div id="mobile-menu"
-      class="hidden md:hidden flex-col bg-[#032030] absolute top-full left-0 w-full p-6 gap-4 border-b border-[#00d2ff]/30">
-      <a href="index.html" class="text-lg py-2 border-b border-white/5">Home</a>
-      <a href="project.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">Projects</a>
-      <a href="game.html"><i class="fa-solid fa-gamepad"></i> Play</a>
-      <a href="skills.html" class="text-lg py-2 border-b border-white/5">Skills</a>
-      <a href="contact.html" class="text-lg py-2 border-b border-white/5">Contact</a>
-    </div>
   </nav>
 
-  <div class="max-w-7xl mx-auto px-4 mt-12">
-    <header class="text-center mb-16">
-      <h1 class="text-5xl font-bold text-white">My <span style="color: var(--btn-clr);">Projects</span></h1>
-      <p class="text-gray-400 mt-4">A showcase of my latest web development work</p>
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <header class="text-center mb-20">
+      <h1 class="text-4xl md:text-6xl font-black italic uppercase leading-none">My <span
+          style="color: var(--btn-clr);">Projects</span></h1>
+      <p class="text-gray-500 font-bold tracking-[0.3em] uppercase text-[10px] mt-4">Precision Engineering & Creative
+        Design</p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-      <!-- No-1 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
       <div class="project-card">
-        <div class="card-content p-5">
+        <div class="card-content p-6">
           <div class="view-badge badge-desktop">Desktop View</div>
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-1.png" alt="Desktop">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Digi-d-3.jpeg" alt="DigiTools"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Digi-D-1.jpeg" alt="DigiTools"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Digi-D-2.jpeg" alt="DigiTools"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Digi-D-4.png" alt="DigiTools"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Digi-D-5.png" alt="DigiTools"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Digi-M-1.jpeg" alt="DigiTools Mobile">
               </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-2.png" alt="Desktop">
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Digi-M-2.jpeg" alt="DigiTools Mobile">
               </div>
-              <div class="swiper-slide" data-type="mobile"><img src="./images/github-mobile-view.png" alt="Mobile">
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Digi-M-3.jpeg" alt="DigiTools Mobile">
               </div>
-              <div class="swiper-slide" data-type="mobile"><img src="./images/github-mobile-view-2.png" alt="Mobile">
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Digi-M-4.jpeg" alt="DigiTools Mobile">
               </div>
             </div>
             <div class="swiper-pagination"></div>
           </div>
-          <h3 class="text-2xl font-bold mb-2">GitHub Issues Tracker</h3>
+          <h3 class="text-2xl font-black mb-2">DigiTools | Storefront</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">Engineered a frictionless marketplace using React and
+            Tailwind CSS, featuring real-time inventory updates.</p>
+          <div class="flex gap-4 mb-4">
+            <i class="fa-brands fa-react lang-icon"></i>
+            <i class="fa-brands fa-js lang-icon"></i>
+            <i class="fa-solid fa-wind lang-icon"></i>
+          </div>
+          <div class="project-actions">
+            <a href="https://digitools-rosy.vercel.app/" class="btn-open" target="_blank">Live Demo <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-6-Digitools" class="btn-github-small"
+              target="_blank"><i class="fa-brands fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-content p-6">
+          <div class="view-badge badge-desktop">Desktop View</div>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-1.png" alt="Github"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/github-desktop-2.png" alt="Github"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/github-mobile-view.png"
+                  alt="Github Mobile"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/github-mobile-view-2.png"
+                  alt="Github Mobile"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+          <h3 class="text-2xl font-black mb-2">GitHub Issues Tracker</h3>
           <p class="text-gray-400 text-sm mb-6 leading-relaxed">A fully functional issue management system featuring
-            real-time tracking and a responsive
-            <br>GitHub-inspired UI.
-          </p>
-          <div class="flex gap-4 mb-8">
-            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
-            <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i>
-            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
-            <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
+            real-time tracking and a responsive UI.</p>
+          <div class="flex gap-4 mb-4">
+            <i class="fa-brands fa-html5 lang-icon"></i>
+            <i class="fa-brands fa-js lang-icon"></i>
+            <i class="fa-solid fa-wind lang-icon"></i>
           </div>
-
           <div class="project-actions">
-            <a href="https://shahriarahmed02.github.io/B13-Assignment-5/" class="btn-open" target="_blank">Open Project
-              <i class="fa-brands fa-github"></i></a>
-            <a href="https://github.com/shahriarahmed02/B13-Assignment-5" class="btn-github-small" target="_blank"
-              data-tooltip="View Repository">
-              <i class="fa-brands fa-github"></i>
-            </a>
+            <a href="https://shahriarahmed02.github.io/B13-Assignment-5/" class="btn-open" target="_blank">Live Demo <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-5" class="btn-github-small" target="_blank"><i
+                class="fa-brands fa-github"></i></a>
           </div>
         </div>
       </div>
-      <!-- No-2 -->
+
       <div class="project-card">
-        <div class="card-content p-5">
+        <div class="card-content p-6">
           <div class="view-badge badge-desktop">Desktop View</div>
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Job-Desktop-1.png" alt="Desktop">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Job-Desktop-1.png" alt="Job Tracker">
               </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/job-desktop-2.png" alt="Desktop">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/job-desktop-2.png" alt="Job Tracker">
               </div>
-              <div class="swiper-slide" data-type="mobile"><img src="./images/job-mobile-1.png" alt="Mobile">
-              </div>
-
+              <div class="swiper-slide" data-type="mobile"><img src="./images/job-mobile-1.png" alt="Job Mobile"></div>
             </div>
             <div class="swiper-pagination"></div>
           </div>
-          <h3 class="text-2xl font-bold mb-2">Job Application Tracker</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-            Streamlined developer dashboard for tracking job applications with live counters and dynamic filtering,
-            built with Tailwind CSS and Synthwave themes.
-          </p>
-          <div class="flex gap-4 mb-8">
-            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
-            <!-- <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i> -->
-            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
-            <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
+          <h3 class="text-2xl font-black mb-2">Job App Tracker</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">Developer dashboard for tracking job applications with
+            live counters and dynamic status filtering.</p>
+          <div class="flex gap-4 mb-4">
+            <i class="fa-brands fa-html5 lang-icon"></i>
+            <i class="fa-brands fa-js lang-icon"></i>
+            <i class="fa-solid fa-wind lang-icon"></i>
           </div>
           <div class="project-actions">
-            <a href="https://shahriarahmed02.github.io/B13-Assignment-4/" class="btn-open" target="_blank">Open Project
-              <i class="fa-brands fa-github"></i></a>
-            <a href="https://github.com/shahriarahmed02/B13-Assignment-4" class="btn-github-small" target="_blank"
-              data-tooltip="View Repository">
-              <i class="fa-brands fa-github"></i>
-            </a>
+            <a href="https://shahriarahmed02.github.io/B13-Assignment-4/" class="btn-open" target="_blank">Live Demo <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-4" class="btn-github-small" target="_blank"><i
+                class="fa-brands fa-github"></i></a>
           </div>
         </div>
       </div>
-      <!-- No-3 -->
+
       <div class="project-card">
-        <div class="card-content p-5">
+        <div class="card-content p-6">
           <div class="view-badge badge-desktop">Desktop View</div>
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-1.png" alt="Desktop">
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-1.png" alt="TechWave"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-2.png" alt="TechWave"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-3.png" alt="TechWave"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-4.png" alt="TechWave"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-1.png" alt="TechWave Mobile">
               </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-2.png" alt="Desktop">
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-2.png" alt="TechWave Mobile">
               </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-3.png" alt="Desktop">
+              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-3.png" alt="TechWave Mobile">
               </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Techwave-d-4.png" alt="Desktop">
-              </div>
-              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-1.png" alt="Mobile">
-              </div>
-
-              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-2.png" alt="Mobile">
-              </div>
-
-              <div class="swiper-slide" data-type="mobile"><img src="./images/Techwave-m-3.png" alt="Mobile">
-              </div>
-
             </div>
             <div class="swiper-pagination"></div>
           </div>
-          <h3 class="text-2xl font-bold mb-2">TechWave Podcast Hub</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">A dummy conceptual tech podcast platform featuring
-            industry
-            interviews and productivity hacks, built to showcase responsive UI
-            and modern styling.
-
-          </p>
-          <div class="flex gap-4 mb-8">
-            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
-            <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i>
-            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
-            <!-- <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i> -->
+          <h3 class="text-2xl font-black mb-2">TechWave Podcast Hub</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">Conceptual tech podcast platform featuring industry
+            interviews, built to showcase responsive UI.</p>
+          <div class="flex gap-4 mb-4">
+            <i class="fa-brands fa-html5 lang-icon"></i>
+            <i class="fa-brands fa-css3-alt lang-icon"></i>
+            <i class="fa-brands fa-js lang-icon"></i>
           </div>
-          <div class="project-actions"><a href="https://shahriarahmed02.github.io/B13-Assignment-2/" class="btn-open"
-              target="_blank">Open Project <i class="fa-brands fa-github"></i></a>
-            <a href="https://github.com/shahriarahmed02/B13-Assignment-2" class="btn-github-small" target="_blank"
-              data-tooltip="View Repository">
-              <i class="fa-brands fa-github"></i>
-            </a>
+          <div class="project-actions">
+            <a href="https://shahriarahmed02.github.io/B13-Assignment-2/" class="btn-open" target="_blank">Live Demo <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/shahriarahmed02/B13-Assignment-2" class="btn-github-small" target="_blank"><i
+                class="fa-brands fa-github"></i></a>
           </div>
         </div>
       </div>
-      <!-- No-4 -->
+
       <div class="project-card">
-        <div class="card-content p-5">
+        <div class="card-content p-6">
           <div class="view-badge badge-desktop">Desktop View</div>
           <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" data-type="desktop"><img src="./images/Cri-d-1.png" alt="Desktop">
-              </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-2.png" alt="Desktop">
-              </div>
-              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-3.png" alt="Desktop">
-              </div>
-
-              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-1.jpeg" alt="Mobile">
-              </div>
-
-              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-2.jpeg" alt="Mobile">
-              </div>
-
-
-
+              <div class="swiper-slide" data-type="desktop"><img src="./images/Cri-d-1.png" alt="Cricket"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-2.png" alt="Cricket"></div>
+              <div class="swiper-slide" data-type="desktop"><img src="./images/cri-d-3.png" alt="Cricket"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-1.jpeg" alt="Cricket Mobile"></div>
+              <div class="swiper-slide" data-type="mobile"><img src="./images/cri-m-2.jpeg" alt="Cricket Mobile"></div>
             </div>
             <div class="swiper-pagination"></div>
           </div>
-          <h3 class="text-2xl font-bold mb-2">Cricket Dream XI</h3>
-          <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-            A lightweight, responsive cricket manager for building 11-player "Dream Teams" within a strict virtual coin
-            budget.
-            Simple player adding/removing logic.
-          </p>
-          <div class="flex gap-4 mb-8">
-            <i class="fa-brands fa-react lang-icon" title="React"></i>
-            <i class="fa-brands fa-html5 lang-icon" title="HTML5"></i>
-            <!-- <i class="fa-brands fa-css3-alt lang-icon" title="CSS3"></i> -->
-            <i class="fa-brands fa-js lang-icon" title="JavaScript"></i>
-            <i class="fa-solid fa-wind lang-icon" title="Tailwind"></i>
-
+          <h3 class="text-2xl font-black mb-2">Cricket Dream 11</h3>
+          <p class="text-gray-400 text-sm mb-6 leading-relaxed">A lightweight, responsive cricket manager for building
+            "Dream Teams" within a virtual budget logic.</p>
+          <div class="flex gap-4 mb-4">
+            <i class="fa-brands fa-react lang-icon"></i>
+            <i class="fa-brands fa-js lang-icon"></i>
+            <i class="fa-solid fa-wind lang-icon"></i>
           </div>
           <div class="project-actions">
-            <a href="https://cricket-dream-11.vercel.app/" class="btn-open" target="_blank">
-              Open Project <i class="fa-solid fa-caret-up"></i>
-            </a>
-
-            <a href="https://github.com/shahriarahmed02/Cricket-dream-11" class="btn-github-small" target="_blank"
-              data-tooltip="View Repository">
-              <i class="fa-brands fa-github"></i>
-            </a>
+            <a href="https://cricket-dream-11.vercel.app/" class="btn-open" target="_blank">Live Demo <i
+                class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <a href="https://github.com/shahriarahmed02/Cricket-dream-11" class="btn-github-small" target="_blank"><i
+                class="fa-brands fa-github"></i></a>
           </div>
         </div>
       </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-      <script>
-        // NAVIGATION LOGIC
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+    </div>
+  </div>
 
-        // Using optional chaining (?.) prevents errors if the button is missing on some pages
-        menuBtn?.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          mobileMenu.classList.toggle('flex');
-        });
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    /* --- 1. MOBILE MENU LOGIC (Contact.html Style) --- */
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.id = "mobile-nav";
+    mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
+    mobileMenu.innerHTML = `
+      <a href="index.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Home</a>
+      <a href="project.html" class="text-lg py-3 border-b border-white/5 text-[#00d2ff] font-bold">Projects</a>
+      <a href="game.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]"><i class="fa-solid fa-gamepad"></i> Play </a>
+      <a href="skills.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Skills</a>
+      <a href="about.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">About</a>
+      <a href="contact.html" class="text-lg py-3 hover:text-[#00d2ff]">Contact</a>
+    `;
+    document.body.appendChild(mobileMenu);
 
-        // SWIPER & DYNAMIC BADGE LOGIC
-        const swiperInstances = new Swiper(".mySwiper", {
-          loop: true,
+    menuBtn.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      } else {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      }
+    });
 
-          // --- MOBILE SMOOTHNESS UPDATES ---
-          grabCursor: true,             // Shows 'hand' icon on PC
-          touchRatio: 1.5,              // Makes swiping feel more 'responsive' on mobile
-          resistanceRatio: 0.85,        // Adds a smooth 'rubber band' effect at edges
-          slideToClickedSlide: true,    // Good for UX
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
 
-          autoplay: {
-            delay: 3000,
-            disableOnInteraction: false, // Prevents autoplay from stopping forever after a user touches it
-            pauseOnMouseEnter: true      // Good for PC users
-          },
-
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true
-          },
-
-          on: {
-            // "init" ensures the badge is correct the moment the page loads
-            init: function () {
-              updateBadge(this);
-            },
-            // "slideChange" updates as the user swipes
-            slideChange: function () {
-              updateBadge(this);
-            }
-          }
-        });
-
-        // REUSABLE BADGE FUNCTION (Cleans up your code)
-        function updateBadge(swiper) {
-          const activeSlide = swiper.slides[swiper.activeIndex];
-          if (!activeSlide) return;
-
-          const type = activeSlide.getAttribute('data-type');
-          const badge = swiper.el.closest('.project-card').querySelector('.view-badge');
-
-          if (badge) {
-            if (type === 'mobile') {
-              badge.innerText = "Mobile View";
-              badge.className = "view-badge badge-mobile";
-            } else {
-              badge.innerText = "Desktop View";
-              badge.className = "view-badge badge-desktop";
-            }
-          }
+    /* --- 2. SWIPER INITIALIZATION --- */
+    document.querySelectorAll('.mySwiper').forEach((el) => {
+      new Swiper(el, {
+        loop: true,
+        grabCursor: true,
+        autoplay: { delay: 4000, disableOnInteraction: false },
+        pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+        on: {
+          init: function () { updateBadge(this); },
+          slideChange: function () { updateBadge(this); }
         }
-      </script>
+      });
+    });
+
+    function updateBadge(swiper) {
+      const activeSlide = swiper.slides[swiper.activeIndex];
+      const type = activeSlide?.getAttribute('data-type');
+      const badge = swiper.el.closest('.project-card').querySelector('.view-badge');
+      if (badge && type) {
+        badge.innerText = type === 'mobile' ? "Mobile View" : "Desktop View";
+        badge.className = `view-badge badge-${type}`;
+      }
+    }
+  </script>
 </body>
 
 </html>

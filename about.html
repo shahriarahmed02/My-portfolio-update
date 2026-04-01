@@ -6,162 +6,362 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <title>About Me | Turjo.codes</title>
+  <title>About Me | Turjo.dev</title>
   <style>
-    /* গ্লোবাল ফিক্স */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap');
+
+    :root {
+      --bg-dark: #021526;
+      --card-bg: #032030;
+      --accent: #00d2ff;
+      --btn-clr: #ff499e;
+    }
+
     body {
-      background-color: #021526;
+      background-color: var(--bg-dark);
       margin: 0;
       color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
     }
 
+    .brand-name {
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+    }
+
     .neon-text {
-      color: #00d2ff;
-      text-shadow: 0 0 10px rgba(0, 208, 255, 0.4);
+      color: var(--accent);
+      text-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
     }
 
-    /* ১. সাদা লাইন ফিক্স */
-    nav {
-      top: -1px !important;
-      border: none !important;
-      outline: none !important;
-      box-shadow: none !important;
+    .glass-card {
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
-    /* ২. ইমেজের চারপাশের বক্স/বর্ডার রিমুভ */
-    .about-img,
-    .about-img img {
-      border: none !important;
-      outline: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
+    .glass-card:hover {
+      border-color: #00d2ff;
+      background: rgba(0, 210, 255, 0.04);
+      transform: translateY(-5px);
     }
 
-    /* ৩. মেনু ট্রানজিশন */
-    #mobile-menu {
-      transition: all 0.3s ease-in-out;
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      position: relative;
+      /* This gives the center dot a base glow */
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #15de5f;
+      border-radius: 50%;
+      /* Change animation to 'glow-up' */
+      animation: glow-up 3s infinite;
+    }
+
+    @keyframes glow-up {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+        box-shadow: 0 0 0px #15de5f;
+      }
+
+      50% {
+        /* The "Glow Up" peak */
+        transform: scale(2.5);
+        opacity: 0.4;
+        box-shadow: 0 0 20px #15de5f;
+      }
+
+      100% {
+        transform: scale(4);
+        opacity: 0;
+        box-shadow: 0 0 0px #15de5f;
+      }
+    }
+
+    .timeline-container {
+      border-left: 2px dashed rgba(0, 210, 255, 0.2);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -9px;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      background: #021526;
+      border: 2px solid #00d2ff;
+      border-radius: 50%;
+    }
+
+    /* Skill Tree specific styles */
+    .skill-node {
+      pointer-events: auto;
+      z-index: 30;
+      transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
   </style>
 </head>
 
 <body>
 
-  <header class="bg-[#021526]">
-    <nav class="sticky top-[-1px] z-[100] bg-[#021526]/95 backdrop-blur-md px-6 py-4">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-
-        <a href="index.html" class="text-2xl font-extrabold tracking-tighter shrink-0">
-          Turjo<span class="neon-text">.dev</span>
-        </a>
-
-        <div class="hidden md:flex items-center gap-8 text-gray-300 font-medium">
-          <a href="index.html" class="hover:text-[#00d2ff] transition-colors">Home</a>
-          <a href="about.html" class="text-[#00d2ff]">About</a>
-          <a href="project.html" class="hover:text-[#00d2ff] transition-colors">Projects</a>
-          <a href="game.html" class="hover:text-[#00d2ff] transition-colors"><i class="fa-solid fa-gamepad"></i>
-            Play</a>
-          <a href="skills.html" class="hover:text-[#00d2ff] transition-colors">Skills</a>
-          <a href="contact.html" class="hover:text-[#00d2ff] transition-colors">Contact</a>
-        </div>
-
-        <button id="menu-btn" class="md:hidden text-2xl text-white focus:outline-none p-2">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+  <nav class="sticky top-0 z-[100] bg-[#021526]/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="index.html" class="brand-name flex items-center">
+        <span class="text-white">Turjo</span><span class="neon-text">.dev</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="index.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Home</a>
+        <a href="project.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Projects</a>
+        <a href="game.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors"><i
+            class="fa-solid fa-gamepad"></i> Play</a>
+        <a href="about.html" class="text-[#00d2ff] font-semibold">About</a>
+        <a href="skills.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Skills</a>
+        <a href="contact.html" class="hover:text-[#00d2ff] text-gray-300 font-semibold transition-colors">Contact</a>
       </div>
+      <button id="menu-btn" class="md:hidden text-2xl text-white"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </nav>
 
-      <div id="mobile-menu"
-        class="hidden md:hidden flex-col bg-[#032030] absolute top-full left-0 w-full p-6 gap-4 border-t border-white/5 shadow-2xl">
-        <a href="index.html" class="text-lg py-2 border-b border-white/5">Home</a>
-        <a href="about.html" class="text-lg py-2 border-b border-white/5 text-[#00d2ff]">About</a>
-        <a href="project.html" class="text-lg py-2 border-b border-white/5">Projects</a>
-        <a href="game.html" class="text-lg py-2 border-b border-white/5"><i class="fa-solid fa-gamepad"></i>
-          Play</a>
-        <a href="skills.html" class="text-lg py-2">Skills</a>
-        <a href="contact.html" class="text-lg py-2 border-b border-white/5">Contact</a>
-      </div>
-    </nav>
-  </header>
+  <section class="py-12 md:py-20 px-6 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
 
-  <section class="py-12 md:py-20 px-6">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-
-      <div class="w-full md:w-1/2 flex justify-center">
-        <div class="relative about-img">
-          <img src="./images/Turjo.png" alt="Turjo"
-            class="w-64 h-64 md:w-96 md:h-96 object-cover rounded-3xl z-10 relative">
-          <div class="absolute -inset-6 bg-[#00d2ff]/10 blur-3xl rounded-full z-0"></div>
-        </div>
-      </div>
-
-      <div class="w-full md:w-1/2 space-y-6 text-center md:text-left">
-        <h2 class="text-5xl md:text-7xl font-extrabold leading-tight">About <span class="neon-text">Me</span></h2>
-        <h3 class="text-2xl text-[#00d2ff] font-bold">Full Stack Web Developer</h3>
-
-        <p class="text-gray-300 text-lg leading-relaxed max-w-xl">
-          I am a dedicated Full Stack Web Developer based in Bangladesh, passionate about creating seamless digital
-          experiences. With a strong foundation in modern web technologies, I focus on building high-performance
-          applications.
-        </p>
-
-        <div id="more-text" class="hidden text-gray-400 text-lg leading-relaxed max-w-xl">
-          My journey in development started with a curiosity for how the web works. Today, I specialize in the MERN
-          stack, crafting responsive layouts with Tailwind CSS and building interactive interfaces with React.
-        </div>
-
-        <button id="read-more-btn"
-          class="bg-[#00d2ff] hover:bg-[#00b8e6] text-[#021526] font-bold py-3 px-10 rounded-xl transition-all shadow-lg active:scale-95">
-          Read More
-        </button>
-
-        <div class="flex flex-wrap gap-4 pt-6 justify-center md:justify-start">
-          <div class="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center gap-3">
-            <i class="fa-solid fa-code text-[#00d2ff] text-xl"></i>
-            <span class="font-medium text-gray-200">5+ Projects Done</span>
+      <div class="lg:col-span-5 space-y-8">
+        <div class="relative group">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-[#00d2ff] to-[#ff499e] rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000">
           </div>
-          <div class="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center gap-3">
-            <i class="fa-solid fa-graduation-cap text-[#00d2ff] text-xl"></i>
-            <span class="font-medium text-gray-200">Continuous Learner</span>
+          <img src="./images/turjo-16.jpeg" alt="Turjo"
+            class="relative w-full aspect-square object-cover rounded-[2rem] border border-white/10">
+          <div
+            class="absolute -bottom-5 -right-0 glass-card px-4 py-1.5 rounded-2xl flex items-center gap-3 shadow-2xl">
+            <div class="pulse-dot"></div>
+            <span class="text-xs font-black uppercase tracking-widest text-green-400">Available for Work</span>
           </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl relative overflow-hidden">
+          <div class="absolute top-0 right-0 p-3 opacity-10">
+            <i class="fa-solid fa-bolt-lightning text-4xl"></i>
+          </div>
+          <h4 class="text-[#00d2ff] font-bold text-sm mb-4 flex items-center gap-2 tracking-widest uppercase">
+            <i class="fa-solid fa-circle-nodes"></i> Working on Now
+          </h4>
+          <div id="latest-project-display" class="animate-pulse">
+            <div class="h-4 bg-white/10 rounded w-3/4 mb-2"></div>
+            <div class="h-3 bg-white/5 rounded w-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="space-y-6">
+          <h2 class="text-4xl md:text-6xl font-black leading-none">Hello, I'm <br><span class="neon-text">Shahriar
+              Ahmed.</span></h2>
+          <p class="text-gray-400 text-lg leading-relaxed max-w-2xl">
+            A <span class="text-white font-bold">MERN Stack Developer</span> based in Bangladesh. I specialize in
+            building digital products that balance aesthetic design with high-performance engineering.
+          </p>
+
+          <div id="more-text"
+            class="hidden text-gray-400 space-y-4 text-md leading-relaxed border-l-2 border-white/10 pl-6 py-2">
+            <p>I started my journey with a simple goal: to make the web more interactive. Today, I build complex
+              trackers, fantasy sports managers, and educational tools using React, Node.js, and Tailwind CSS.</p>
+            <p>When I'm not coding, I'm analyzing UI trends or exploring new ways to optimize deployment workflows on
+              Vercel.</p>
+          </div>
+
+          <button id="read-more-btn"
+            class="group flex items-center gap-3 font-bold text-[#00d2ff] hover:text-white transition-all">
+            <span>READ MY STORY</span>
+            <i class="fa-solid fa-arrow-right-long group-hover:translate-x-2 transition-transform"></i>
+          </button>
+        </div>
+
+        <div class="mt-20 space-y-16">
+
+          <div class="space-y-8">
+            <h3 class="text-2xl font-black tracking-tight flex items-center gap-3">
+              <span class="w-8 h-1 bg-[#ff499e]"></span> Academic Pathway
+            </h3>
+            <div class="timeline-container ml-2 space-y-12">
+              <div class="relative pl-10">
+                <div class="timeline-dot"></div>
+                <span class="text-[10px] font-bold text-[#ff499e] uppercase tracking-[0.2em]">University</span>
+                <h4 class="text-xl font-extrabold text-white mt-1">B.Sc. in Statistics</h4>
+                <p class="text-gray-400 text-sm font-medium mt-1">Dhaka Central University, Bangladesh</p>
+                <p class="text-gray-500 text-xs mt-3 leading-relaxed">Applying statistical models and data logic to
+                  build smarter, scalable web architectures and efficient backend systems.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-8">
+            <h3 class="text-2xl font-black tracking-tight flex items-center gap-3">
+              <span class="w-8 h-1 bg-[#00d2ff]"></span> My Progress Hub
+            </h3>
+
+            <div
+              class="glass-card p-10 rounded-[2.5rem] flex flex-col items-center justify-center min-h-[450px] relative overflow-hidden bg-[#032030]/30 border-dashed border-white/5">
+
+              <div id="tree-root" class="z-20 cursor-pointer group relative">
+                <div
+                  class="absolute -inset-6 bg-[#00d2ff] opacity-20 blur-2xl group-hover:opacity-40 transition-opacity">
+                </div>
+                <div
+                  class="relative bg-[#021526] border-2 border-[#00d2ff] px-10 py-5 rounded-2xl font-black text-center shadow-[0_0_30px_rgba(0,210,255,0.2)]">
+                  <i id="root-icon"
+                    class="fa-solid fa-seedling mb-2 block text-2xl text-[#00d2ff] transition-transform duration-500"></i>
+                  <span class="tracking-tighter">MERN STAGE</span>
+                  <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.2em] mt-2">Tap to Spread</p>
+                </div>
+              </div>
+
+              <div id="skill-nodes" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="-140" data-dist="170">
+                  <span
+                    class="bg-green-500/10 border border-green-500/40 text-green-500 px-4 py-2 rounded-xl text-[10px] font-black">HTML
+                    & CSS <i class="fa-solid fa-check ml-1"></i></span>
+                </div>
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="-90" data-dist="180">
+                  <span
+                    class="bg-green-500/10 border border-green-500/40 text-green-500 px-4 py-2 rounded-xl text-[10px] font-black">JAVASCRIPT
+                    <i class="fa-solid fa-check ml-1"></i></span>
+                </div>
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="-40" data-dist="170">
+                  <span
+                    class="bg-green-500/10 border border-green-500/40 text-green-500 px-4 py-2 rounded-xl text-[10px] font-black">TAILWIND
+                    <i class="fa-solid fa-check ml-1"></i></span>
+                </div>
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="20" data-dist="160">
+                  <span
+                    class="bg-[#ff499e]/10 border border-[#ff499e] text-[#ff499e] px-5 py-2 rounded-xl text-[10px] font-black animate-pulse">REACT.JS
+                    <i class="fa-solid fa-spinner animate-spin ml-1"></i></span>
+                </div>
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="90" data-dist="180">
+                  <span
+                    class="bg-white/5 border border-white/10 text-gray-500 px-4 py-2 rounded-xl text-[10px] font-black italic">NODE
+                    & EXPRESS</span>
+                </div>
+                <div class="skill-node opacity-0 scale-50 absolute" data-angle="160" data-dist="170">
+                  <span
+                    class="bg-white/5 border border-white/10 text-gray-500 px-4 py-2 rounded-xl text-[10px] font-black italic">API
+                    & DataBase</span>
+                </div>
+              </div>
+
+              <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                <div class="w-80 h-80 border border-white rounded-full"></div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
   <script>
-    // মোবাইল মেনু লজিক
+    /* --- MOBILE MENU LOGIC --- */
     const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenu = document.createElement('div');
+    mobileMenu.id = "mobile-nav";
+    mobileMenu.className = "hidden flex-col bg-[#032030] fixed top-[72px] left-0 w-full p-6 gap-4 z-[999] border-b border-[#00d2ff]/30 shadow-2xl";
+    mobileMenu.innerHTML = `
+      <a href="index.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Home</a>
+      <a href="project.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Projects</a>
+      <a href="game.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]"><i class="fa-solid fa-gamepad"></i> Play </a>
+      <a href="skills.html" class="text-lg py-3 border-b border-white/5 hover:text-[#00d2ff]">Skills</a>
+      <a href="about.html" class="text-lg py-3 border-b border-white/5 text-[#00d2ff] font-bold">About</a>
+      <a href="contact.html" class="text-lg py-3 hover:text-[#00d2ff]">Contact</a>
+    `;
+    document.body.appendChild(mobileMenu);
 
-    menuBtn.onclick = (e) => {
-      e.stopPropagation();
-      mobileMenu.classList.toggle('hidden');
-      mobileMenu.classList.toggle('flex');
-    };
-
-    // মেনু খোলা থাকা অবস্থায় বড় স্ক্রিন করলে অটো-বন্ধ হবে
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768) {
+    menuBtn.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.classList.add('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      } else {
         mobileMenu.classList.add('hidden');
         mobileMenu.classList.remove('flex');
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
       }
     });
 
-    // স্ক্রিনের অন্য কোথাও ক্লিক করলে মেনু বন্ধ হবে
-    document.onclick = (e) => {
-      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.add('hidden');
-        mobileMenu.classList.remove('flex');
-      }
-    };
-
-    // রিড মোর লজিক
+    /* --- READ MORE LOGIC --- */
     const readBtn = document.getElementById('read-more-btn');
     const moreText = document.getElementById('more-text');
     readBtn.onclick = () => {
       const isHidden = moreText.classList.toggle('hidden');
-      readBtn.textContent = isHidden ? 'Read More' : 'Read Less';
+      readBtn.querySelector('span').innerText = isHidden ? 'READ MY STORY' : 'SHOW LESS';
+      readBtn.querySelector('i').className = isHidden ? 'fa-solid fa-arrow-right-long group-hover:translate-x-2 transition-transform' : 'fa-solid fa-arrow-up-long transition-transform';
     };
+
+    /* --- SKILL TREE SPREAD LOGIC --- */
+    const treeRoot = document.getElementById('tree-root');
+    const nodes = document.querySelectorAll('.skill-node');
+    const rootIcon = document.getElementById('root-icon');
+    let isExpanded = false;
+
+    treeRoot.addEventListener('click', () => {
+      isExpanded = !isExpanded;
+      nodes.forEach(node => {
+        if (isExpanded) {
+          const angle = parseInt(node.dataset.angle);
+          const dist = parseInt(node.dataset.dist);
+          const x = Math.cos(angle * (Math.PI / 180)) * dist;
+          const y = Math.sin(angle * (Math.PI / 180)) * dist;
+          node.style.opacity = "1";
+          node.style.transform = `translate(${x}px, ${y}px) scale(1)`;
+        } else {
+          node.style.opacity = "0";
+          node.style.transform = `translate(0, 0) scale(0.5)`;
+        }
+      });
+      rootIcon.className = isExpanded ? 'fa-solid fa-tree mb-2 block text-2xl text-[#ff499e]' : 'fa-solid fa-seedling mb-2 block text-2xl text-[#00d2ff]';
+    });
+
+    /* --- AUTO-SYNC LATEST PROJECT LOGIC --- */
+    async function syncLatestProject() {
+      const displayArea = document.getElementById('latest-project-display');
+      try {
+        const response = await fetch('project.html');
+        if (!response.ok) throw new Error('Could not load project.html');
+        const htmlString = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+        const firstTitle = doc.querySelector('.project-card h3')?.innerText || "Portfolio Refresh";
+        const firstDesc = doc.querySelector('.project-card p')?.innerText || "Updating my latest builds.";
+        displayArea.classList.remove('animate-pulse');
+        displayArea.innerHTML = `
+          <div class="space-y-2">
+            <p class="text-white font-extrabold text-lg leading-tight">${firstTitle}</p>
+            <p class="text-gray-400 text-xs leading-relaxed line-clamp-2">${firstDesc}</p>
+            <a href="project.html" class="inline-flex items-center gap-2 mt-2 text-[10px] font-black text-[#00d2ff] hover:underline uppercase tracking-widest">
+              Live Details <i class="fa-solid fa-chevron-right text-[8px]"></i>
+            </a>
+          </div>
+        `;
+      } catch (error) {
+        displayArea.innerHTML = "<p class='text-gray-500 text-xs italic'>Check Projects page for latest updates.</p>";
+      }
+    }
+    window.addEventListener('DOMContentLoaded', syncLatestProject);
   </script>
 </body>
 
