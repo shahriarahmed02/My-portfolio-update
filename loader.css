@@ -93,6 +93,7 @@
     left: 0;
     color: rgb(19, 171, 201);
     animation: rotate-right 2s linear infinite;
+    filter: none;
 }
 
 .gear-two {
