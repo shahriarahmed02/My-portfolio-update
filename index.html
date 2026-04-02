@@ -232,6 +232,12 @@
                 opacity: 0;
             }
         }
+
+        .text-style {
+            background: linear-gradient(to bottom, #fff, #a8a8a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 
@@ -300,8 +306,8 @@
             </div>
 
             <h3 style="font-size: 1.5rem; font-weight: 400; color: #888;">Hello, I'm</h3>
-            <h1 style="font-size: 3rem; font-weight: 900; line-height: 1.1; margin: 10px 0;">Shahriar Ahmed <span
-                    class="neon-text">Turjo</span></h1>
+            <h1 class="text-style" style="font-size: 3rem; font-weight: 900; line-height: 1.1; margin: 10px 0;">Shahriar
+                Ahmed <span class="neon-text">Turjo</span></h1>
             <h2 style="font-size: 1.8rem; margin-bottom: 25px;">I'm a <span class="typing-text"></span></h2>
 
             <p style="color: #aaa; line-height: 1.8; margin-bottom: 40px; font-size: 1.1rem;">
@@ -381,9 +387,9 @@
 
         // Typing Animation
         var typed = new Typed(".typing-text", {
-            strings: ["Full Stack Developer", "MERN Specialist", "Statistican & Coder"],
-            typeSpeed: 80,
-            backSpeed: 50,
+            strings: ["Full Stack Aspirant", "MERN Learner", "Frontend Developer"],
+            typeSpeed: 70,
+            backSpeed: 60,
             loop: true
         });
 
@@ -398,7 +404,7 @@
 
                 // Optional: Enable scrolling on body after loader is gone
                 document.body.style.overflow = 'auto';
-            }, 4000);
+            }, 3500);
         });
 
         // Prevent scrolling while loading
