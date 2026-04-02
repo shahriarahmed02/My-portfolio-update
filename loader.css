@@ -1,84 +1,218 @@
-/* loader.css */
+/* LOADER.CSS - Turjo.dev 
+    Mechanical Engine + Project Rain + Holographic Feedback
+*/
+
 #project-loader {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
-    background: #021526; /* Your theme background */
+    background: #021526; /* Deep brand background */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10000;
-    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s;
+    overflow: hidden; 
+    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .loader-wrapper {
+    z-index: 10;
     text-align: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-/* The "MERN Chip" inspired loader */
-.chip-box {
-    width: 80px;
-    height: 80px;
-    border: 3px solid #00d2ff;
-    border-radius: 15px;
+/* --- MECHANICAL GEAR SYSTEM --- */
+.gear-system {
+    position: relative;
+    width: 280px;
+    height: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
-    position: relative;
-    animation: pulse-border 2s infinite;
+    margin-bottom: 30px;
 }
 
-.chip-box i {
-    font-size: 2rem;
-    color: #ff499e;
-    animation: rotate-icon 4s linear infinite;
-}
-
-/* Glowing Rays around the box */
-.chip-box::before, .chip-box::after {
-    content: '';
+.gear-big, .gear-small-top, .gear-small-bottom {
     position: absolute;
-    background: #00d2ff;
-    opacity: 0.3;
+    color: rgba(0, 210, 255, 0.15); /* Glowing cyan tint */
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.2));
 }
 
-.chip-box::before { width: 2px; height: 40px; top: -40px; left: 50%; box-shadow: 0 0 10px #00d2ff; }
-.chip-box::after { width: 40px; height: 2px; right: -40px; top: 50%; box-shadow: 0 0 10px #00d2ff; }
+.gear-big {
+    font-size: 260px;
+    animation: rotate-clockwise 10s linear infinite;
+}
 
-.load-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 900;
-    font-size: 1.5rem;
+.gear-small-top {
+    font-size: 100px;
+    top: -10px;
+    right: -10px;
+    color: rgba(255, 73, 158, 0.12); /* Subtle pink tint */
+    animation: rotate-counter 4s linear infinite;
+}
+
+.gear-small-bottom {
+    font-size: 120px;
+    bottom: -20px;
+    left: -20px;
+    animation: rotate-counter 6s linear infinite;
+}
+
+/* --- CENTRAL MERN CHIP --- */
+.mern-main-chip {
+    width: 160px;
+    height: 110px;
+    background: #010c15;
+    border: 2px solid #00d2ff;
+    border-radius: 15px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(0, 210, 255, 0.4), inset 0 0 15px rgba(0, 210, 255, 0.2);
+    overflow: hidden;
+}
+
+.chip-inner {
+    text-align: center;
+    z-index: 2;
+}
+
+.pulse-icon {
+    font-size: 22px;
+    color: #ff499e;
+    margin-bottom: 8px;
+    display: block;
+    animation: icon-glow 1.5s ease-in-out infinite alternate;
+}
+
+.chip-text .main-title {
+    display: block;
     color: white;
+    font-weight: 900;
+    font-size: 13px;
     letter-spacing: 2px;
 }
 
-.load-title span { color: #00d2ff; }
-
-.progress-text {
-    font-family: monospace;
+.chip-text .sub-title {
     color: #ff499e;
-    font-size: 12px;
-    margin-top: 10px;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 4px;
     display: block;
-    letter-spacing: 4px;
 }
 
-@keyframes pulse-border {
-    0% { box-shadow: 0 0 0px #00d2ff; }
-    50% { box-shadow: 0 0 30px #00d2ff; }
-    100% { box-shadow: 0 0 0px #00d2ff; }
+.scan-line {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(0, 210, 255, 0.3), transparent);
+    animation: scan 2s linear infinite;
 }
 
-@keyframes rotate-icon {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* --- PROJECT RAIN ELEMENTS --- */
+.rain-item {
+    position: absolute;
+    top: -200px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 210, 255, 0.2);
+    border-radius: 12px;
+    padding: 6px;
+    pointer-events: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Hide animation - Slide Up like a curtain */
+.rain-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    filter: contrast(1.1) brightness(0.8);
+}
+
+/* --- HOLOGRAPHIC FEEDBACK --- */
+.feedback-bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid #00d2ff;
+    border-radius: 0 20px 20px 20px;
+    padding: 15px 20px;
+    color: white;
+    font-size: 12px;
+    max-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    animation: drift linear infinite;
+}
+
+.feedback-bubble span {
+    display: block;
+    font-size: 9px;
+    color: #ff499e;
+    margin-top: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- KEYFRAMES & ANIMATIONS --- */
+@keyframes rotate-clockwise {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-counter {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+@keyframes scan {
+    0% { top: -100%; }
+    100% { top: 100%; }
+}
+
+@keyframes icon-glow {
+    from { filter: drop-shadow(0 0 2px #ff499e); transform: scale(1); }
+    to { filter: drop-shadow(0 0 12px #ff499e); transform: scale(1.15); }
+}
+
+@keyframes drift {
+    from { transform: translateY(110vh) scale(0.8); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    to { transform: translateY(-20vh) scale(1.1); opacity: 0; }
+}
+
+@keyframes fall {
+    from { transform: translateY(-250px) rotate(5deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    to { transform: translateY(110vh) rotate(-5deg); opacity: 0; }
+}
+
+/* --- FOOTER & EXIT --- */
+.brand-footer {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: -1px;
+    margin-top: 10px;
+}
+
+.brand-footer span {
+    color: #00d2ff;
+}
+
 .loader-finish {
-    transform: translateY(-100%) !important;
+    transform: translateY(-100%);
 }

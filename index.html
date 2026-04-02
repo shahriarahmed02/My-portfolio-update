@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animation.css">
-    ]
+
     <link rel="stylesheet" href="loader.css">
 
     <style>
@@ -203,6 +203,23 @@
             color: var(--accent) !important;
             background: rgba(0, 210, 255, 0.05);
         }
+
+        /* Add this to your style block for the falling animation */
+        @keyframes fall {
+            from {
+                transform: translateY(-200px) rotate(10deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            to {
+                transform: translateY(110vh) rotate(-10deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -210,11 +227,25 @@
     <!-- loader -->
     <div id="project-loader">
         <div class="loader-wrapper">
-            <div class="chip-box">
-                <i class="fa-solid fa-microchip"></i>
+            <div class="gear-system">
+                <i class="fa-solid fa-gear gear-big"></i>
+                <i class="fa-solid fa-gear gear-small-top"></i>
+                <i class="fa-solid fa-gear gear-small-bottom"></i>
+
+                <div class="mern-main-chip">
+                    <div class="chip-inner">
+                        <i class="fa-solid fa-microchip pulse-icon"></i>
+                        <div class="chip-text">
+                            <span class="main-title">MERN STAGE</span>
+                            <span class="sub-title">ENGINEERING...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="load-title">TURJO<span>.DEV</span></div>
-            <span class="progress-text">BOOTING...</span>
+
+            <div class="brand-footer">
+                TURJO<span>.DEV</span>
+            </div>
         </div>
     </div>
     <!-- <canvas id="reptile-canvas"></canvas> -->
@@ -341,20 +372,75 @@
         });
 
 
-        window.addEventListener('load', () => {
+
+        const projectImages = [
+            './images/Digi-d-3.jpeg', // Replace with your real project paths
+            './images/Cri-d-1.png',
+            './images/Techwave-d-1.png',
+
+        ];
+
+        const feedbacks = [
+            { text: "Incredible clean code!", user: "DevPals" },
+            { text: "Smooth UI, great data logic!", user: "Analytics Team" },
+            { text: "A MERN Architect!", user: "TechHub" },
+            { text: "Love the statistics dashboard!", user: "Prof. Lee" }
+        ];
+
+        function createRain() {
             const loader = document.getElementById('project-loader');
 
-            // Force stay for 3.5 seconds
+            // Create Project Rain
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const item = document.createElement('div');
+                    item.className = 'rain-item';
+                    item.style.left = Math.random() * 100 + 'vw';
+                    item.style.width = (Math.random() * 100 + 100) + 'px';
+                    item.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+
+                    // Add a random project image
+                    const img = document.createElement('img');
+                    img.src = projectImages[Math.floor(Math.random() * projectImages.length)];
+                    item.appendChild(img);
+
+                    loader.appendChild(item);
+                }, i * 300);
+            }
+
+            // Create Drifting Feedback
+            feedbacks.forEach((f, index) => {
+                setTimeout(() => {
+                    const b = document.createElement('div');
+                    b.className = 'feedback-bubble';
+                    b.style.left = Math.random() * 80 + 'vw';
+                    b.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                    // Randomize blur for depth
+                    const depth = Math.random() * 5;
+                    b.style.filter = `blur(${depth}px)`;
+                    b.style.zIndex = depth > 2 ? '1' : '11';
+
+                    b.innerHTML = `${f.text} <span>- ${f.user}</span>`;
+                    loader.appendChild(b);
+                }, index * 800);
+            });
+        }
+
+        window.addEventListener('load', () => {
+            createRain();
+            const loader = document.getElementById('project-loader');
+
+            // Let them enjoy the animation for 4.5 seconds
             setTimeout(() => {
                 loader.classList.add('loader-finish');
-
-                // Optional: Enable scrolling on body after loader is gone
                 document.body.style.overflow = 'auto';
-            }, 3500);
+            }, 4500);
         });
 
-        // Prevent scrolling while loading
         document.body.style.overflow = 'hidden';
+
+
+
     </script>
 </body>
 
