@@ -1,0 +1,20 @@
+{
+  "name": "Turjo Dev",
+  "short_name": "Turjo.dev",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#021526",
+  "theme_color": "#00d2ff",
+  "icons": [
+    {
+      "src": "images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
