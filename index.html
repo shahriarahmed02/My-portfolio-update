@@ -10,18 +10,12 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="animation.css">
-
     <link rel="stylesheet" href="loader.css">
-    <!-- mobile icon -->
+
     <link rel="icon" type="image/png" href="./images/turjofavicon.jpeg">
-
     <link rel="apple-touch-icon" href="./images/myselfcartoon.jpeg">
-
     <link rel="shortcut icon" sizes="192x192" href="./images/myselfcartoon.jpeg">
     <link rel="shortcut icon" sizes="512x512" href="./images/myselfcartoon.jpeg">
-
-
-    <!-- manifest -->
 
     <link rel="manifest" href="manifest.json">
 
@@ -216,23 +210,6 @@
             background: rgba(0, 210, 255, 0.05);
         }
 
-        /* Add this to your style block for the falling animation */
-        @keyframes fall {
-            from {
-                transform: translateY(-200px) rotate(10deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.6;
-            }
-
-            to {
-                transform: translateY(110vh) rotate(-10deg);
-                opacity: 0;
-            }
-        }
-
         .text-style {
             background: linear-gradient(to bottom, #fff, #a8a8a8);
             -webkit-background-clip: text;
@@ -242,7 +219,10 @@
 </head>
 
 <body class="sentry">
-    <!-- loader -->
+    <audio id="boot-sound" preload="auto">
+        <source src="assets/Boot.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="project-loader">
         <div class="loader-wrapper">
             <div class="mern-chip">
@@ -270,16 +250,13 @@
             <span class="progress-text">BOOTING<span class="dot-ani"></span></span>
         </div>
     </div>
-    <!-- <canvas id="reptile-canvas"></canvas> -->
 
     <header>
         <nav class="navbar-container">
             <a href="index.html" class="logo">Turjo<span>.dev</span></a>
-
             <div class="menu-icon" id="menu-icon">
                 <i class="fa-solid fa-bars"></i>
             </div>
-
             <div class="nav-wrapper" id="nav-wrapper">
                 <ul class="nav-list">
                     <li><a href="#home" class="active">Home</a></li>
@@ -301,8 +278,8 @@
                 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
                 <div class="pulse-dot"></div>
                 <span
-                    style="font-size: 10px; font-weight: 900; letter-spacing: 2px; color: #22c55e; text-transform: uppercase;">
-                    Ready to Work</span>
+                    style="font-size: 10px; font-weight: 900; letter-spacing: 2px; color: #22c55e; text-transform: uppercase;">Ready
+                    to Work</span>
             </div>
 
             <h3 style="font-size: 1.5rem; font-weight: 400; color: #888;">Hello, I'm</h3>
@@ -322,14 +299,11 @@
 
             <div class="social-icons" style="margin-top: 20px; display: flex; gap: 25px;">
                 <a href="https://www.linkedin.com/in/shahriarahmedturjo/" target="_blank"
-                    style="font-size: 1.5rem; color: #888; transition: 0.3s;" onmouseover="this.style.color='#00d2ff'"
-                    onmouseout="this.style.color='#888'"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/shahriarahmed02?tab=repositories" target="_blank"
-                    style="font-size: 1.5rem; color: #888; transition: 0.3s;" onmouseover="this.style.color='#fff'"
-                    onmouseout="this.style.color='#888'"><i class="fa-brands fa-github"></i></a>
+                    style="font-size: 1.5rem; color: #888;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/shahriarahmed02" target="_blank" style="font-size: 1.5rem; color: #888;"><i
+                        class="fa-brands fa-github"></i></a>
                 <a href="https://www.facebook.com/share/1GtwgpFQkc/" target="_blank"
-                    style="font-size: 1.5rem; color: #888; transition: 0.3s;" onmouseover="this.style.color='#1877F2'"
-                    onmouseout="this.style.color='#888'"><i class="fa-brands fa-square-facebook"></i></a>
+                    style="font-size: 1.5rem; color: #888;"><i class="fa-brands fa-square-facebook"></i></a>
             </div>
         </div>
 
@@ -343,26 +317,22 @@
 
     <section class="stats-section">
         <div class="stat-card">
-            <h2>1+</h2>
-            <span>Years Exp</span>
+            <h2>1+</h2><span>Years Exp</span>
         </div>
         <div class="stat-card">
-            <h2>12+</h2>
-            <span>Projects</span>
+            <h2>12+</h2><span>Projects</span>
         </div>
         <div class="stat-card">
-            <h2>MERN</h2>
-            <span>Stack Focus</span>
+            <h2>MERN</h2><span>Stack Focus</span>
         </div>
         <div class="stat-card">
-            <h2>B.Sc</h2>
-            <span>Statistics</span>
+            <h2>B.Sc</h2><span>Statistics</span>
         </div>
     </section>
 
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script>
-        // Navbar Logic (Kept as requested)
+        // Navbar Logic
         const menuIcon = document.getElementById('menu-icon');
         const navWrapper = document.getElementById('nav-wrapper');
         menuIcon.onclick = () => {
@@ -393,23 +363,54 @@
             loop: true
         });
 
+        // LOADER AND SOUND LOGIC (One time per session)
+        document.body.style.overflow = 'hidden';
 
+        // Immediate Execution for Sound
+        (function () {
+            const sound = document.getElementById('boot-sound');
+            const hasPlayed = sessionStorage.getItem('bootSoundPlayed');
+
+            if (!hasPlayed) {
+                const playSound = () => {
+                    if (sound) {
+                        sound.volume = 0.5;
+                        sound.play().then(() => {
+                            sessionStorage.setItem('bootSoundPlayed', 'true');
+                        }).catch(e => console.log("Interaction needed for audio"));
+                    }
+                };
+
+                // Try immediate play
+                playSound();
+                // Interaction fallbacks
+                document.addEventListener('mousedown', playSound, { once: true });
+                document.addEventListener('touchstart', playSound, { once: true });
+            }
+        })();
 
         window.addEventListener('load', () => {
             const loader = document.getElementById('project-loader');
+            const sound = document.getElementById('boot-sound');
 
-            // Force stay for 3.5 seconds
+            // 3.5 Second Timer for Loader
             setTimeout(() => {
-                loader.classList.add('loader-finish');
+                // Fade out audio if it was playing
+                if (sessionStorage.getItem('bootSoundPlayed') === 'true' && sound) {
+                    const fadeAudio = setInterval(() => {
+                        if (sound.volume > 0.05) {
+                            sound.volume -= 0.05;
+                        } else {
+                            sound.pause();
+                            clearInterval(fadeAudio);
+                        }
+                    }, 50);
+                }
 
-                // Optional: Enable scrolling on body after loader is gone
+                loader.classList.add('loader-finish');
                 document.body.style.overflow = 'auto';
             }, 3500);
         });
-
-        // Prevent scrolling while loading
-        document.body.style.overflow = 'hidden';
-
     </script>
 </body>
 
